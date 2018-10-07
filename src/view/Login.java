@@ -120,20 +120,21 @@ public class Login extends javax.swing.JFrame {
 
     private void bt_dangnhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_dangnhapActionPerformed
         // TODO add your handling code here:
-        
+        String user = txt_username.getText().trim();
         String pass = new String(txt_password.getPassword());        
-        if (txt_username.getText().equals("") && pass.equals(""))
+        if (user.equals("") && pass.equals(""))     //Kiểm tra bỏ trống username và password
         {
             JOptionPane.showMessageDialog(null,Constant.LOGIN_EMPTY);           
         }else{
-            ConnectDB connect = new ConnectDB();
-            connect.checkLogin();
-        }
-        
-
-        
+            ConnectDB connect = new ConnectDB();   
+            connect.getConnect();
+            //System.out.print(user);
+            //System.out.print(pass);
+            connect.checkLogin(user,pass);
+        }       
     }//GEN-LAST:event_bt_dangnhapActionPerformed
 
+  
     /**
      * @param args the command line arguments
      */

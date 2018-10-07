@@ -18,8 +18,6 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        ConnectDB connect = new ConnectDB();
-        connect.getConnect();
        
         Login lg = new Login();
         lg.setVisible(true);

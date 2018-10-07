@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,6 +22,7 @@ public class ConnectDB {
     private Connection con;
     Statement st = null;
     ResultSet rs = null;
+    public String role = ""; 
     
     String hostName = "localhost";
     String port = "1433";
@@ -38,22 +40,31 @@ public class ConnectDB {
      } catch (Exception ex) {
          System.out.print(Constant.CONNECT_FAILED + " Error: "+ ex);
      }
-
  }
     
-    public void checkLogin(){
+    public void checkLogin(String username,String password){
         try {          
             st = con.createStatement();
-            String query = " SELECT * FROM users WHERE username ='adminCNTT'";
+            String query = "SELECT password,makhoa FROM dbo.users WHERE username ='"+username+"'";
             rs = st.executeQuery(query);
-            //System.out.println();
-            while(rs.next())
+           
+            String passDB = "";
+            if(rs.next())
             {
-                String password  = rs.getString(2);
-                System.out.println("Password =" + password);
+                passDB  = rs.getString(1).trim();
+                role = rs.getString(2);
+            }        
+            if (passDB.isEmpty()){   //Kiểm tra tên đăng nhập
+                    JOptionPane.showMessageDialog(null,Constant.LOGIN_E001);
+            }else{
+                    if(passDB.equals(password.trim())){  //Kiểm tra password trong data trở về với password user nhập 
+                        JOptionPane.showMessageDialog(null,Constant.LOGIN_SUCCESS);
+                    }else{
+                        JOptionPane.showMessageDialog(null,Constant.LOGIN_E002);
+                    }
             }
         } catch (Exception e) {
-            System.out.println("Erro "+ e);
+            System.out.println("Error "+ e);
         }
     }
     

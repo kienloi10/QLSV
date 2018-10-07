@@ -16,7 +16,12 @@ public interface Constant {
     String CONNECT_FAILED = "Kết nối thất bại";
     
     //Lỗi trong view Login
-    //Để trống TextBox Username và Password
-    String LOGIN_EMPTY = "Bạn chưa đăng nhập đầy đủ";
+    String LOGIN_EMPTY = "Bạn chưa điền đầy đủ";
+    String LOGIN_E001 = "Tên đăng nhập sai";
+    String LOGIN_E002 = "Password sai";
+    
+    //Đăng nhập thành công
+    String LOGIN_SUCCESS = "Đăng nhập thành công";
+    
     
 }
