@@ -1,17 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import view.Login;
 
-/**
- *
- * @author HP
+/** Mô tả: Chương trình quản lý sinh viên
+ *  Tác giả: Đổng Kiến Lợi
+ *  Email: kienloi10@gmail.com
+ *  Ngày cập nhật: 10/07/20148
  */
-public class Main {
+public class Main{ 
+        
+    /*  Tên hàm: main
+    *   Mô tả: Hàm main của project
+    *   Kiểu trả về: không có
+    *   Tham số: String [] args    
+    */
 
     /**
      * @param args the command line arguments

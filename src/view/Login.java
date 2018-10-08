@@ -9,18 +9,20 @@ import javax.swing.JOptionPane;
 import model.ConnectDB;
 import model.Constant;
 
-/**
- *
- * @author HP
+/*  Mô tả: Chương trình quản lý sinh viên
+ *  Tác giả: Đổng Kiến Lợi
+ *  Email: kienloi10@gmail.com
+ *  Ngày cập nhật: 10/07/2018
  */
 public class Login extends javax.swing.JFrame {
 
     /**
      * Creates new form Home
      */
-    
+    private final static int MAX_LENGTH = 10;
     public Login() {
         initComponents();
+        
     }
 
     /**
@@ -35,104 +37,209 @@ public class Login extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txt_username = new javax.swing.JTextField();
-        bt_dangnhap = new javax.swing.JButton();
-        bt_reset = new javax.swing.JButton();
-        txt_password = new javax.swing.JPasswordField();
+        txtUsername = new javax.swing.JTextField();
+        btnLogin = new javax.swing.JButton();
+        btnClose = new javax.swing.JButton();
+        txtPassword = new javax.swing.JPasswordField();
+        btnRegister = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel1.setText("ĐĂNG NHẬP TÀI KHOẢN");
+        jLabel1.setText("LOGIN");
 
-        jLabel2.setText("Username");
+        jLabel2.setText("USERNAME");
 
-        jLabel3.setText("Password");
+        jLabel3.setText("PASSWORD");
 
-        txt_username.addActionListener(new java.awt.event.ActionListener() {
+        txtUsername.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_usernameActionPerformed(evt);
+                txtUsernameActionPerformed(evt);
             }
         });
 
-        bt_dangnhap.setText("Đăng nhập");
-        bt_dangnhap.addActionListener(new java.awt.event.ActionListener() {
+        btnLogin.setText("OK");
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_dangnhapActionPerformed(evt);
+                btnLoginActionPerformed(evt);
             }
         });
 
-        bt_reset.setText("Reset");
+        btnClose.setText("CLOSE");
+        btnClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCloseActionPerformed(evt);
+            }
+        });
+
+        btnRegister.setBackground(new java.awt.Color(204, 255, 255));
+        btnRegister.setForeground(new java.awt.Color(102, 102, 255));
+        btnRegister.setText("Register for the account");
+        btnRegister.setBorder(null);
+        btnRegister.setBorderPainted(false);
+        btnRegister.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegisterActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel4.setText("PHẦN MỀM QUẢN LÝ SINH VIÊN");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(85, 85, 85)
-                        .addComponent(bt_dangnhap)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bt_reset))
+                        .addGap(141, 141, 141)
+                        .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(196, 196, 196)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(124, 124, 124)
+                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(76, 76, 76)
+                        .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(59, 59, 59)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(65, 65, 65)
-                                .addComponent(jLabel1))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
                                     .addComponent(jLabel3))
                                 .addGap(101, 101, 101)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txt_username)
-                                    .addComponent(txt_password))))))
-                .addContainerGap(182, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+                                    .addComponent(txtPassword)))
+                            .addComponent(jLabel4))))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(46, 46, 46)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
-                .addGap(54, 54, 54)
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txt_username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3)
-                    .addComponent(txt_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(67, 67, 67)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bt_dangnhap)
-                    .addComponent(bt_reset))
-                .addContainerGap(99, Short.MAX_VALUE))
+                    .addComponent(btnLogin)
+                    .addComponent(btnClose))
+                .addGap(30, 30, 30)
+                .addComponent(btnRegister)
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txt_usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_usernameActionPerformed
+    private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_usernameActionPerformed
+    }//GEN-LAST:event_txtUsernameActionPerformed
 
-    private void bt_dangnhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_dangnhapActionPerformed
+    /*
+        Tên hàm: checkSpecialValue
+        Mô tả: Kiểm tra chuỗi truyền vào có ký tự đặc biệt không
+        Kiểu trả về: true / false
+        Tham số: String s - Chuỗi s
+    */
+    private boolean checkSpecialValue(String s)
+    {
+        char [] specialValue = {'=','!','@','#','$','%','^','&','*'};
+        boolean result = false; // Mặc định chuỗi truyền vào chưa có ký tự đặc biệt
+        char a[] = s.toCharArray(); //Tách chuỗi s thành mảng a ký tự
+        for ( int i = 0; i < a.length; i++)
+        {
+            for ( int j = 0; j < specialValue.length; j++)
+            {
+                if (a[i] == specialValue[j])
+                    result = true;
+            }
+        }
+        return result;
+    }
+    
+    /*
+        Tên hàm: checkLength
+        Mô tả: Kiểm tra chuỗi truyền vào có quá độ dài cho phép không
+        Kiểu trả về: true / false
+        Tham số: String s - Chuỗi s
+    */
+    private boolean checkLength(String s)
+    {
+        char a[] = s.toCharArray(); //Tách chuỗi s thành mảng a ký tự
+        boolean result = false;     //Mặc định chuỗi truyền vào đủ độ dài
+        if (a.length > MAX_LENGTH)
+        {
+            result = true;
+        }
+        return result;
+    }
+    
+    /*  Tên hàm: bt_dangNhapActionPerformed
+    *   Mô tả: Lắng nghe sự kiện click button đăng nhập để thực thi
+    *   Kiểu trả về: không có
+    *   Tham số: java.awt.event.ActionEvent evt - Sự kiện khi nhấn vào
+    */
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-        String user = txt_username.getText().trim();
-        String pass = new String(txt_password.getPassword());        
+        String user = txtUsername.getText().trim();
+        String pass = new String(txtPassword.getPassword());        
         if (user.equals("") && pass.equals(""))     //Kiểm tra bỏ trống username và password
         {
             JOptionPane.showMessageDialog(null,Constant.LOGIN_EMPTY);           
         }else{
-            ConnectDB connect = new ConnectDB();   
-            connect.getConnect();
-            //System.out.print(user);
-            //System.out.print(pass);
-            connect.checkLogin(user,pass);
+            if (checkSpecialValue(user) == true)    //Kiểm tra tên đăng nhập có ký tự đặc biệt
+            {
+                JOptionPane.showMessageDialog(null, Constant.LOGIN_E003);
+            }else{
+                if (checkLength(user) == true)
+                {
+                    JOptionPane.showMessageDialog(null, Constant.LOGIN_E004);
+                }else{
+                    ConnectDB connect = new ConnectDB();   
+                    connect.getConnect();
+                    connect.checkLogin(user,pass);
+                }
+            }
         }       
-    }//GEN-LAST:event_bt_dangnhapActionPerformed
+    }//GEN-LAST:event_btnLoginActionPerformed
+    
+    /*
+        Tên hàm: btnRegisterActionPerformed
+        Mô tả: Lắng nghe sự kiện click button đăng ký để thực thi
+        Kiểu trả về: không có
+        Tham số: java.awt.event.ActionEvent evt - Sự kiện khi nhấn vào
+    */
+    private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
+        // TODO add your handling code here:
+        Register dk = new Register();
+        dk.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnRegisterActionPerformed
+
+     /*
+        Tên hàm: btnCloseActionPerformed
+        Mô tả: Lắng nghe sự kiện click button close để thực thi
+        Kiểu trả về: không có
+        Tham số: java.awt.event.ActionEvent evt - Sự kiện khi nhấn vào
+    */
+    private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
+        // TODO add your handling code here
+        this.setVisible(false);
+    }//GEN-LAST:event_btnCloseActionPerformed
 
   
     /**
@@ -172,12 +279,14 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bt_dangnhap;
-    private javax.swing.JButton bt_reset;
+    private javax.swing.JButton btnClose;
+    private javax.swing.JButton btnLogin;
+    private javax.swing.JButton btnRegister;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPasswordField txt_password;
-    private javax.swing.JTextField txt_username;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }
