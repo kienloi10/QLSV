@@ -27,5 +27,7 @@ public final class Constant {
     
     //Lỗi trong view Register
     public final static String REGISTER_E001 = "Password do not match";
+    public final static String REGISTER_E002 = "Register failed";
+    public final static String REGISTER_SUCCESS = "Register successfully";
     
 }

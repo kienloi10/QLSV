@@ -105,7 +105,20 @@ public class ConnectDB {
     }
     
     public void addUser(String username, String password, String faculty ){
-        String query = "INSERT INTO Users(USERNAME,PASSWORD,MAKHOA) VALUES ('" + username + "','" + password + "','" +faculty+ "')";
+        try{
+            st = con.createStatement();
+            String query = "INSERT INTO Users(USERNAME,PASSWORD,MAKHOA) VALUES ('" + username + "','" + password + "','" +faculty+ "')";
+            int result = st.executeUpdate(query);
+            if (result == 1)
+            {
+                JOptionPane.showMessageDialog(null, Constant.REGISTER_SUCCESS);
+            }else{
+                JOptionPane.showMessageDialog(null, Constant.REGISTER_E002);
+            }
+                    
+        }catch(Exception e){
+            System.out.println(e);
+        }
         
     }
     
