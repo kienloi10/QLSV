@@ -8,7 +8,9 @@ package view;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import model.ConnectDB;
+import model.Constant;
 import model.Faculty;
 
 /*  Mô tả: Chương trình quản lý sinh viên
@@ -161,11 +163,6 @@ public class Register extends javax.swing.JFrame {
             cbFaculty.addItem(arrayList.get(i).getNameFaculty());
         }
         
-        /*
-        String [] a = {"a","b","c"};
-        DefaultComboBoxModel dm = new DefaultComboBoxModel(a);
-        cbFaculty.setModel(dm);
-        */
     }
     
     
@@ -183,6 +180,15 @@ public class Register extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnCancelActionPerformed
 
+    private boolean checkConfirmPass(String passA, String passB)
+    {
+        boolean result = false;
+        if (passA.equals(passB.trim()))
+        {
+            result = true;
+        }
+        return result;
+    }
     /*
         Tên hàm: btnCancelActionPerformed
         Mô tả: Lắng nghe sự kiện click button cancel để thực thi
@@ -195,10 +201,20 @@ public class Register extends javax.swing.JFrame {
         String userNameR = txtUsername.getText().trim();
         String passwordR = new String(txtPassword.getPassword());        
         String passwordRCF = new String(txtPasswordCF.getPassword());
+        String faculty = (String)cbFaculty.getSelectedItem();
         
-        if (userNameR.equals("") && passwordR.equals("") && passwordRCF.equals("")){
-            
+        if (userNameR.equals("") || passwordR.equals("") || passwordRCF.equals("")){ //Kiểm tra không bỏ trống
+            JOptionPane.showMessageDialog(null, Constant.LOGIN_EMPTY);
+        }else{
+            if (checkConfirmPass(passwordR, passwordRCF) == false)      //Kiểm tra field pass và pass confirm
+            {
+                JOptionPane.showMessageDialog(null, Constant.REGISTER_E001);
+            }else{
+                ConnectDB connect = new ConnectDB();
+                
+            }
         }
+        
     }//GEN-LAST:event_btnOKActionPerformed
 
     private void cbFacultyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbFacultyActionPerformed

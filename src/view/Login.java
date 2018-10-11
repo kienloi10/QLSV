@@ -197,7 +197,7 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         String user = txtUsername.getText().trim();
         String pass = new String(txtPassword.getPassword());        
-        if (user.equals("") && pass.equals(""))     //Kiểm tra bỏ trống username và password
+        if (user.equals("") || pass.equals(""))     //Kiểm tra bỏ trống username và password
         {
             JOptionPane.showMessageDialog(null,Constant.LOGIN_EMPTY);           
         }else{
@@ -239,6 +239,7 @@ public class Login extends javax.swing.JFrame {
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
         // TODO add your handling code here
         this.setVisible(false);
+        
     }//GEN-LAST:event_btnCloseActionPerformed
 
   

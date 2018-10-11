@@ -11,19 +11,21 @@ package model;
  */
 public final class Constant {
     //Kết nối thành công
-    public final static String CONNECT_OK = "Kết nối thành công";
+    public final static String CONNECT_OK = "Connect successfully";
     //Kết nối thất bại
-    public final static String CONNECT_FAILED = "Kết nối thất bại";
+    public final static String CONNECT_FAILED = "Connect failed";
     
     //Lỗi trong view Login
-    public final static String LOGIN_EMPTY = "Bạn chưa điền đầy đủ";
-    public final static String LOGIN_E001 = "Tên đăng nhập sai";
-    public final static String LOGIN_E002 = "Password sai";
-    public final static String LOGIN_E003 = "Tên đăng nhập có chứa ký tự đặc biệt";
-    public final static String LOGIN_E004 = "Tên đăng nhập quá độ dài quy định là 10";
+    public final static String LOGIN_EMPTY = "Empty Username or Password";
+    public final static String LOGIN_E001 = "Wrong Username";
+    public final static String LOGIN_E002 = "Wrong Password";
+    public final static String LOGIN_E003 = "Username has a special character";
+    public final static String LOGIN_E004 = "Username too long length";
     
     //Đăng nhập thành công
-    public final static String LOGIN_SUCCESS = "Đăng nhập thành công";
+    public final static String LOGIN_SUCCESS = "Login successfully";
     
+    //Lỗi trong view Register
+    public final static String REGISTER_E001 = "Password do not match";
     
 }

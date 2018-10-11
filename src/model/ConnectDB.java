@@ -54,10 +54,10 @@ public class ConnectDB {
     *   Tham số: String userName - chuỗi tài khoản user đăng nhập
     *   Tham số: String passWord - chuỗi password user đăng nhập
     */
-    public void checkLogin(String userName,String passWord){
+    public void checkLogin(String username,String password){
         try {          
             st = con.createStatement();
-            String query = "SELECT password,makhoa FROM dbo.users WHERE username ='"+userName+"'";
+            String query = "SELECT password,makhoa FROM dbo.users WHERE username ='"+username+"'";
             rs = st.executeQuery(query);
            
             String passDB = "";
@@ -69,7 +69,7 @@ public class ConnectDB {
             if (passDB.isEmpty()){   //Kiểm tra tên đăng nhập có tồn tại không
                     JOptionPane.showMessageDialog(null,Constant.LOGIN_E001);
             }else{
-                    if(passDB.equals(passWord.trim())){  //Kiểm tra password trong data trở về với password user nhập 
+                    if(passDB.equals(password.trim())){  //Kiểm tra password trong data trở về với password user nhập 
                         JOptionPane.showMessageDialog(null,Constant.LOGIN_SUCCESS);                      
                     }else{
                         JOptionPane.showMessageDialog(null,Constant.LOGIN_E002);
@@ -80,6 +80,12 @@ public class ConnectDB {
         }
     }
     
+    /*
+        Tên hàm: getFaculty
+        Mô tả: Lấy danh sách tên khoa
+        KIểu trả về: List<Facult>
+        Tham số: không có   
+    */
     public List<Faculty> getFaculty(){
         List<Faculty> arrayList = new ArrayList<Faculty>();
         //faculty = null;
@@ -98,6 +104,10 @@ public class ConnectDB {
         return null;
     }
     
+    public void addUser(String username, String password, String faculty ){
+        String query = "INSERT INTO Users(USERNAME,PASSWORD,MAKHOA) VALUES ('" + username + "','" + password + "','" +faculty+ "')";
+        
+    }
     
     
 }
