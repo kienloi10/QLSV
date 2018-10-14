@@ -20,7 +20,7 @@ public final class Constant {
     public final static String LOGIN_E001 = "Wrong Username";
     public final static String LOGIN_E002 = "Wrong Password";
     public final static String LOGIN_E003 = "Username has a special character";
-    public final static String LOGIN_E004 = "Username too long length";
+        public final static String LOGIN_E004 = "Username too long length";
     
     //Đăng nhập thành công
     public final static String LOGIN_SUCCESS = "Login successfully";
@@ -29,5 +29,10 @@ public final class Constant {
     public final static String REGISTER_E001 = "Password do not match";
     public final static String REGISTER_E002 = "Register failed";
     public final static String REGISTER_SUCCESS = "Register successfully";
+    
+    //
+    public final static String FACULTY_ADD_SUCCESS = "Add successfully";
+    public final static String FACULTY_ADD_FAILED = "Add failed";
+
     
 }

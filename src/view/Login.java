@@ -47,11 +47,11 @@ public class Login extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel1.setText("LOGIN");
+        jLabel1.setText("Đăng nhập");
 
-        jLabel2.setText("USERNAME");
+        jLabel2.setText("Tên đăng nhập");
 
-        jLabel3.setText("PASSWORD");
+        jLabel3.setText("Mật khẩu");
 
         txtUsername.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -75,7 +75,7 @@ public class Login extends javax.swing.JFrame {
 
         btnRegister.setBackground(new java.awt.Color(204, 255, 255));
         btnRegister.setForeground(new java.awt.Color(102, 102, 255));
-        btnRegister.setText("Register for the account");
+        btnRegister.setText("Đăng ký tài khoản");
         btnRegister.setBorder(null);
         btnRegister.setBorderPainted(false);
         btnRegister.addActionListener(new java.awt.event.ActionListener() {
@@ -157,7 +157,7 @@ public class Login extends javax.swing.JFrame {
     */
     private boolean checkSpecialValue(String s)
     {
-        char [] specialValue = {'=','!','@','#','$','%','^','&','*'};
+        char [] specialValue = {'=','!','@','#','$','%','^','&','*',' '};
         boolean result = false; // Mặc định chuỗi truyền vào chưa có ký tự đặc biệt
         char a[] = s.toCharArray(); //Tách chuỗi s thành mảng a ký tự
         for ( int i = 0; i < a.length; i++)
@@ -192,6 +192,7 @@ public class Login extends javax.swing.JFrame {
     *   Mô tả: Lắng nghe sự kiện click button đăng nhập để thực thi
     *   Kiểu trả về: không có
     *   Tham số: java.awt.event.ActionEvent evt - Sự kiện khi nhấn vào
+        2.2.a Check hạng mục
     */
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
@@ -205,7 +206,7 @@ public class Login extends javax.swing.JFrame {
             {
                 JOptionPane.showMessageDialog(null, Constant.LOGIN_E003);
             }else{
-                if (checkLength(user) == true)
+                if (checkLength(user) == true)  //Kiểm tra độ dài
                 {
                     JOptionPane.showMessageDialog(null, Constant.LOGIN_E004);
                 }else{

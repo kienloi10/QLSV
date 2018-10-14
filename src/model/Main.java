@@ -1,5 +1,6 @@
 package model;
 
+import view.FacultyManager;
 import view.Login;
 
 /** Mô tả: Chương trình quản lý sinh viên
@@ -21,8 +22,10 @@ public class Main{
     public static void main(String[] args) {
         // TODO code application logic here
        
-        Login lg = new Login();
-        lg.setVisible(true);
+//        Login lg = new Login();
+//        lg.setVisible(true);
+        FacultyManager fm = new FacultyManager();
+        fm.setVisible(true);
     }
     
 }

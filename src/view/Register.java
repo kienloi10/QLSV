@@ -60,15 +60,15 @@ public class Register extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lb_Name.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        lb_Name.setText("REGISTER FOR THE ACCOUNT");
+        lb_Name.setText("ĐĂNG KÝ TÀI KHOẢN");
 
-        jLabel1.setText("Username");
+        jLabel1.setText("Tên đăng nhập");
 
-        jLabel2.setText("Password");
+        jLabel2.setText("Mật khẩu");
 
-        jLabel3.setText("Confirm Password");
+        jLabel3.setText("Xác nhận mật khẩu");
 
-        jLabel4.setText("Faculty");
+        jLabel4.setText("Khoa");
 
         cbFaculty.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,7 +83,7 @@ public class Register extends javax.swing.JFrame {
             }
         });
 
-        btnCancel.setText("Cancel");
+        btnCancel.setText("Hủy");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelActionPerformed(evt);
@@ -211,6 +211,8 @@ public class Register extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, Constant.REGISTER_E001);
             }else{
                 ConnectDB connect = new ConnectDB();
+                connect.getConnect();
+                connect.addUser(userNameR, passwordR, faculty);
                 
             }
         }

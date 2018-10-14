@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.Array;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -20,9 +21,11 @@ import view.Register;
  */
 public class ConnectDB {
     private Connection con;
-    Statement st = null;
+    Statement st;
+    CallableStatement cs;
     ResultSet rs = null;
     public String role = "";
+    int result; //Kết quả trả về cho executeQuery
     
     
     String hostName = "localhost";  //Tên miền
@@ -53,6 +56,7 @@ public class ConnectDB {
     *   Kiểu trả về: không có
     *   Tham số: String userName - chuỗi tài khoản user đăng nhập
     *   Tham số: String passWord - chuỗi password user đăng nhập
+        2.2.a Check hạng mục
     */
     public void checkLogin(String username,String password){
         try {          
@@ -88,7 +92,6 @@ public class ConnectDB {
     */
     public List<Faculty> getFaculty(){
         List<Faculty> arrayList = new ArrayList<Faculty>();
-        //faculty = null;
         try{
             st = con.createStatement();
             String query = "SELECT MAKHOA, TENKHOA FROM KHOA";
@@ -104,11 +107,22 @@ public class ConnectDB {
         return null;
     }
     
+    /*
+        Tên hàm: addUser
+        Mô tả: Thêm user vào bảng users trong database
+        Kiểu trả về: không có
+        Tham số: String username - Tên username
+        Tham số: String password - Tên password
+        Tham số: String faculty - Tên Khoa
+    */
     public void addUser(String username, String password, String faculty ){
         try{
-            st = con.createStatement();
-            String query = "INSERT INTO Users(USERNAME,PASSWORD,MAKHOA) VALUES ('" + username + "','" + password + "','" +faculty+ "')";
-            int result = st.executeUpdate(query);
+            String query = "{call SP_THEMUSERS(?,?,?)}";
+            cs = con.prepareCall(query);
+            cs.setString(1,username);
+            cs.setString(2, password);
+            cs.setString(3, faculty);
+            result = cs.executeUpdate();           
             if (result == 1)
             {
                 JOptionPane.showMessageDialog(null, Constant.REGISTER_SUCCESS);
@@ -122,5 +136,21 @@ public class ConnectDB {
         
     }
     
+    
+    public void addFaculty(String codeFaculty, String nameFaculty){
+        try{
+            st = con.createStatement();
+            String query = "INSERT INTO (MAKHOA, TENKHOA) VALUES ('" + codeFaculty + "','" + nameFaculty + "')";
+            result = st.executeUpdate(query);
+            if (result == 1){
+                JOptionPane.showMessageDialog(null, Constant.FACULTY_ADD_SUCCESS);                
+            }else{
+                JOptionPane.showMessageDialog(null, Constant.FACULTY_ADD_FAILED);
+            }
+            
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    }
     
 }
