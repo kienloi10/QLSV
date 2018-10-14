@@ -34,5 +34,9 @@ public final class Constant {
     public final static String FACULTY_ADD_SUCCESS = "Add successfully";
     public final static String FACULTY_ADD_FAILED = "Add failed";
 
-    
+    public final static String FACULTY_E001 = "Empty CodeFaculty or NameFaculty";
+
+    public final static String FACULTY_DEL_SUCCESS = "Delete successfully";
+    public final static String FACULTY_DEL_FAILED = "Delete failed";
+
 }

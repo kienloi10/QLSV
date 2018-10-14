@@ -140,12 +140,28 @@ public class ConnectDB {
     public void addFaculty(String codeFaculty, String nameFaculty){
         try{
             st = con.createStatement();
-            String query = "INSERT INTO (MAKHOA, TENKHOA) VALUES ('" + codeFaculty + "','" + nameFaculty + "')";
+            String query = "INSERT INTO KHOA(MAKHOA,TENKHOA) VALUES ('" + codeFaculty + "',N'" + nameFaculty + "')";
             result = st.executeUpdate(query);
             if (result == 1){
                 JOptionPane.showMessageDialog(null, Constant.FACULTY_ADD_SUCCESS);                
             }else{
                 JOptionPane.showMessageDialog(null, Constant.FACULTY_ADD_FAILED);
+            }
+            
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    }
+    
+    public void deleteFaculty(String codeFaculty){
+        try{
+            st = con.createStatement();
+            String query = "DELETE FROM KHOA WHERE MAKHOA ='" + codeFaculty + "'";
+            result = st.executeUpdate(query);
+            if (result == 1){
+                JOptionPane.showMessageDialog(null, Constant.FACULTY_DEL_SUCCESS);                
+            }else{
+                JOptionPane.showMessageDialog(null, Constant.FACULTY_DEL_SUCCESS);                
             }
             
         }catch(Exception e){

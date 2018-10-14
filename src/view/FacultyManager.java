@@ -7,9 +7,11 @@ package view;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import model.ConnectDB;
+import model.Constant;
 import model.Faculty;
 
 /**
@@ -103,8 +105,19 @@ public class FacultyManager extends javax.swing.JFrame {
 
         btnDelFaculty.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/delete-file-icon.png"))); // NOI18N
         btnDelFaculty.setText("XÓA");
+        btnDelFaculty.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDelFacultyActionPerformed(evt);
+            }
+        });
 
+        btnRefesh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/database-refresh-icon.png"))); // NOI18N
         btnRefesh.setText("TẢI LẠI");
+        btnRefesh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefeshActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -203,6 +216,15 @@ public class FacultyManager extends javax.swing.JFrame {
 
     private void btnAddFacultyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddFacultyActionPerformed
         // TODO add your handling code here:
+        String codeFaculty = txtCodeFaculty.getText().trim();
+        String nameFaculty = txtNameFaculty.getText().trim();
+        if (codeFaculty.equals("") || nameFaculty.equals("")){
+            JOptionPane.showMessageDialog(null, Constant.FACULTY_E001);
+        }else{
+            connect.getConnect();
+            connect.addFaculty(codeFaculty, nameFaculty);
+        }
+        
     }//GEN-LAST:event_btnAddFacultyActionPerformed
 
     private void tableFacultyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableFacultyMouseClicked
@@ -213,6 +235,19 @@ public class FacultyManager extends javax.swing.JFrame {
         txtNameFaculty.setText(model.getValueAt(i, 1).toString());
 
     }//GEN-LAST:event_tableFacultyMouseClicked
+
+    private void btnRefeshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefeshActionPerformed
+        // TODO add your handling code here:
+        connect.getConnect();
+        showFacultyInTable();
+    }//GEN-LAST:event_btnRefeshActionPerformed
+
+    private void btnDelFacultyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelFacultyActionPerformed
+        // TODO add your handling code here:
+        String codeFaculty = txtCodeFaculty.getText().trim();
+        connect.getConnect();
+        connect.deleteFaculty(codeFaculty);
+    }//GEN-LAST:event_btnDelFacultyActionPerformed
 
     public void clearTable(DefaultTableModel tb) {
         tb.setRowCount(0);

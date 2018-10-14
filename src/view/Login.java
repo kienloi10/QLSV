@@ -19,6 +19,7 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Home
      */
+    ConnectDB connect = new ConnectDB();   
     private final static int MAX_LENGTH = 10;
     public Login() {
         initComponents();
@@ -210,7 +211,6 @@ public class Login extends javax.swing.JFrame {
                 {
                     JOptionPane.showMessageDialog(null, Constant.LOGIN_E004);
                 }else{
-                    ConnectDB connect = new ConnectDB();   
                     connect.getConnect();
                     connect.checkLogin(user,pass);
                 }
