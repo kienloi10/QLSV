@@ -20,9 +20,8 @@ public final class Constant {
     public final static String LOGIN_E001 = "Wrong Username";
     public final static String LOGIN_E002 = "Wrong Password";
     public final static String LOGIN_E003 = "Username has a special character";
-        public final static String LOGIN_E004 = "Username too long length";
+    public final static String LOGIN_E004 = "Username too long length";
     
-    //Đăng nhập thành công
     public final static String LOGIN_SUCCESS = "Login successfully";
     
     //Lỗi trong view Register
@@ -30,11 +29,12 @@ public final class Constant {
     public final static String REGISTER_E002 = "Register failed";
     public final static String REGISTER_SUCCESS = "Register successfully";
     
-    //
+    //Lỗi trong view AdminManager
     public final static String FACULTY_ADD_SUCCESS = "Add successfully";
     public final static String FACULTY_ADD_FAILED = "Add failed";
 
     public final static String FACULTY_E001 = "Empty CodeFaculty or NameFaculty";
+    public final static String FACULTY_E002 = "CodeFaculty or NameFaculty has a special character";
 
     public final static String FACULTY_DEL_SUCCESS = "Delete successfully";
     public final static String FACULTY_DEL_FAILED = "Delete failed";

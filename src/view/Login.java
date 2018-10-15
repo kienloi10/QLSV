@@ -6,6 +6,7 @@
 package view;
 
 import javax.swing.JOptionPane;
+import model.CheckAll;
 import model.ConnectDB;
 import model.Constant;
 
@@ -20,7 +21,9 @@ public class Login extends javax.swing.JFrame {
      * Creates new form Home
      */
     ConnectDB connect = new ConnectDB();   
-    private final static int MAX_LENGTH = 10;
+    CheckAll checkAll = new CheckAll();
+    
+
     public Login() {
         initComponents();
         
@@ -150,44 +153,9 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUsernameActionPerformed
 
-    /*
-        Tên hàm: checkSpecialValue
-        Mô tả: Kiểm tra chuỗi truyền vào có ký tự đặc biệt không
-        Kiểu trả về: true / false
-        Tham số: String s - Chuỗi s
-    */
-    private boolean checkSpecialValue(String s)
-    {
-        char [] specialValue = {'=','!','@','#','$','%','^','&','*',' '};
-        boolean result = false; // Mặc định chuỗi truyền vào chưa có ký tự đặc biệt
-        char a[] = s.toCharArray(); //Tách chuỗi s thành mảng a ký tự
-        for ( int i = 0; i < a.length; i++)
-        {
-            for ( int j = 0; j < specialValue.length; j++)
-            {
-                if (a[i] == specialValue[j])
-                    result = true;
-            }
-        }
-        return result;
-    }
     
-    /*
-        Tên hàm: checkLength
-        Mô tả: Kiểm tra chuỗi truyền vào có quá độ dài cho phép không
-        Kiểu trả về: true / false
-        Tham số: String s - Chuỗi s
-    */
-    private boolean checkLength(String s)
-    {
-        char a[] = s.toCharArray(); //Tách chuỗi s thành mảng a ký tự
-        boolean result = false;     //Mặc định chuỗi truyền vào đủ độ dài
-        if (a.length > MAX_LENGTH)
-        {
-            result = true;
-        }
-        return result;
-    }
+    
+
     
     /*  Tên hàm: bt_dangNhapActionPerformed
     *   Mô tả: Lắng nghe sự kiện click button đăng nhập để thực thi
@@ -203,18 +171,25 @@ public class Login extends javax.swing.JFrame {
         {
             JOptionPane.showMessageDialog(null,Constant.LOGIN_EMPTY);           
         }else{
-            if (checkSpecialValue(user) == true)    //Kiểm tra tên đăng nhập có ký tự đặc biệt
-            {
-                JOptionPane.showMessageDialog(null, Constant.LOGIN_E003);
+            if (user.equals("admin") || pass.equals("admin")){  //Đăng nhập vào admin
+                AdminManager adminManager = new AdminManager();
+                adminManager.setVisible(true);
+                this.setVisible(false);
             }else{
-                if (checkLength(user) == true)  //Kiểm tra độ dài
+                if (checkAll.checkSpecialValue(user) == true)    //Kiểm tra tên đăng nhập có ký tự đặc biệt
                 {
-                    JOptionPane.showMessageDialog(null, Constant.LOGIN_E004);
+                    JOptionPane.showMessageDialog(null, Constant.LOGIN_E003);
                 }else{
-                    connect.getConnect();
-                    connect.checkLogin(user,pass);
+                    if (checkAll.checkLength(user) == true)  //Kiểm tra độ dài
+                    {
+                        JOptionPane.showMessageDialog(null, Constant.LOGIN_E004);
+                    }else{
+                        connect.getConnect();
+                        connect.checkLogin(user,pass);
+                    }
                 }
             }
+            
         }       
     }//GEN-LAST:event_btnLoginActionPerformed
     
@@ -239,7 +214,7 @@ public class Login extends javax.swing.JFrame {
     */
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
         // TODO add your handling code here
-        this.setVisible(false);
+        System.exit(0);
         
     }//GEN-LAST:event_btnCloseActionPerformed
 

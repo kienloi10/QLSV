@@ -161,7 +161,7 @@ public class ConnectDB {
             if (result == 1){
                 JOptionPane.showMessageDialog(null, Constant.FACULTY_DEL_SUCCESS);                
             }else{
-                JOptionPane.showMessageDialog(null, Constant.FACULTY_DEL_SUCCESS);                
+                JOptionPane.showMessageDialog(null, Constant.FACULTY_DEL_FAILED);                
             }
             
         }catch(Exception e){
