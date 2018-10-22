@@ -5,9 +5,10 @@
  */
 package model;
 
-/**
- *
- * @author HP
+/*  Description: Chương trình quản lý sinh viên
+ *  Author: Đổng Kiến Lợi
+ *  Email: kienloi10@gmail.com
+ *  Date: 10/08/2018
  */
 public final class Constant {
     //Kết nối thành công
@@ -25,8 +26,11 @@ public final class Constant {
     public final static String LOGIN_SUCCESS = "Login successfully";
     
     //Lỗi trong view Register
+    public final static String REGISTER_EMPTY = "Empty Username or Password or Confirm password";
     public final static String REGISTER_E001 = "Password do not match";
-    public final static String REGISTER_E002 = "Register failed";
+    public final static String REGISTER_E002 = "Register failed,Username exist";
+    public final static String REGISTER_E003 = "Username has a special character";
+    public final static String REGISTER_E004 = "Username too long length";
     public final static String REGISTER_SUCCESS = "Register successfully";
     
     //Lỗi trong view AdminManager

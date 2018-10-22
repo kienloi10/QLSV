@@ -12,12 +12,15 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import view.AdminManager;
+import view.Login;
 import view.Register;
+import view.UserManager;
 
-/** Mô tả: Chương trình quản lý sinh viên
- *  Tác giả: Đổng Kiến Lợi
+/*  Description: Chương trình quản lý sinh viên
+ *  Author: Đổng Kiến Lợi
  *  Email: kienloi10@gmail.com
- *  Ngày cập nhật: 10/07/20148
+ *  Date: 10/08/2018
  */
 public class ConnectDB {
     private Connection con;
@@ -26,6 +29,7 @@ public class ConnectDB {
     ResultSet rs = null;
     public String role = "";
     int result; //Kết quả trả về cho executeQuery
+    
     
     
     String hostName = "localhost";  //Tên miền
@@ -59,9 +63,11 @@ public class ConnectDB {
         2.2.a Check hạng mục
     */
     public void checkLogin(String username,String password){
+        String codeRole = "";
+        Login login = new Login();
         try {          
             st = con.createStatement();
-            String query = "SELECT password,makhoa FROM dbo.users WHERE username ='"+username+"'";
+            String query = "SELECT password,makhoa,maquyen FROM dbo.users WHERE username ='"+username+"'";
             rs = st.executeQuery(query);
            
             String passDB = "";
@@ -69,12 +75,23 @@ public class ConnectDB {
             {
                 passDB  = rs.getString(1).trim();
                 role = rs.getString(2);
+                codeRole = rs.getString(3);
             }        
             if (passDB.isEmpty()){   //Kiểm tra tên đăng nhập có tồn tại không
                     JOptionPane.showMessageDialog(null,Constant.LOGIN_E001);
             }else{
                     if(passDB.equals(password.trim())){  //Kiểm tra password trong data trở về với password user nhập 
-                        JOptionPane.showMessageDialog(null,Constant.LOGIN_SUCCESS);                      
+                        JOptionPane.showMessageDialog(null,Constant.LOGIN_SUCCESS);
+                        System.out.println("Quyền là: " + codeRole);
+                        if (codeRole.trim().equals("1")){
+                            AdminManager adminManager =  new AdminManager();
+                            adminManager.setVisible(true);
+                            login.setVisible(false);
+                        }else{
+                            UserManager userManager = new UserManager();
+                            userManager.setVisible(true);
+                            login.setVisible(false);
+                        }                       
                     }else{
                         JOptionPane.showMessageDialog(null,Constant.LOGIN_E002);
                     }
@@ -85,10 +102,10 @@ public class ConnectDB {
     }
     
     /*
-        Tên hàm: getFaculty
-        Mô tả: Lấy danh sách tên khoa
-        KIểu trả về: List<Facult>
-        Tham số: không có   
+        Name: getFaculty
+        Description: Get list name faculty
+        Return: List<Facult>
+        Parameter: null   
     */
     public List<Faculty> getFaculty(){
         List<Faculty> arrayList = new ArrayList<Faculty>();
@@ -108,12 +125,13 @@ public class ConnectDB {
     }
     
     /*
-        Tên hàm: addUser
-        Mô tả: Thêm user vào bảng users trong database
-        Kiểu trả về: không có
-        Tham số: String username - Tên username
-        Tham số: String password - Tên password
-        Tham số: String faculty - Tên Khoa
+        Name: addUser
+        Description: Add user into table Users in database
+        Return: null
+        Parameter: String username - Name username
+        Parameter: String password - Name password
+        Parameter: String faculty - Name Khoa
+        2.a.5 
     */
     public void addUser(String username, String password, String faculty ){
         try{
@@ -167,6 +185,30 @@ public class ConnectDB {
         }catch(Exception e){
             System.out.println(e);
         }
+    }
+    
+    
+    /*
+        Name: getUser
+        Description: Get list name user
+        Return: List<User>
+        Parameter: null   
+    */
+    public List<User> getUser(){
+        List<User> arrayList = new ArrayList<User>();
+        try{
+            st = con.createStatement();
+            String query = "SELECT USERNAME, PASSWORD, MAKHOA FROM USERS WHERE MAQUYEN = '2'";
+            rs = st.executeQuery(query);
+            while(rs.next()){            
+                arrayList.add(new User(rs.getString(1), rs.getString(2), rs.getString(3)));
+            }         
+            return arrayList;   
+
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        return null;
     }
     
 }

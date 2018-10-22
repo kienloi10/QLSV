@@ -9,14 +9,15 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import model.CheckAll;
 import model.ConnectDB;
 import model.Constant;
 import model.Faculty;
 
-/*  Mô tả: Chương trình quản lý sinh viên
- *  Tác giả: Đổng Kiến Lợi
+/*  Description: Chương trình quản lý sinh viên
+ *  Author: Đổng Kiến Lợi
  *  Email: kienloi10@gmail.com
- *  Ngày cập nhật: 10/08/2018
+ *  Date: 10/08/2018
  */
 public class Register extends javax.swing.JFrame {
 
@@ -24,11 +25,14 @@ public class Register extends javax.swing.JFrame {
      * Creates new form DangKy
      */
     ConnectDB connect = new ConnectDB();
+    CheckAll checkAll = new CheckAll();
     List<Faculty> arrayList = new ArrayList<Faculty>();
 
     //private List<Faculty> faculty = new List<Faculty>();
     public Register() {
-        initComponents();       
+        initComponents();    
+        setLocationRelativeTo(this);
+        setResizable(false);
         connect.getConnect();
         showComboBox();
     }
@@ -151,10 +155,10 @@ public class Register extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     /*
-        Tên hàm: showComboBox
-        Mô tả: Hiển thị thông tin khoa lên combobox
-        Kiểu trả về: không có
-        Tham số: không có
+        Name: showComboBox
+        Description: Show info name faculty in combobox
+        Return: null
+        Parameter: null
     */
     public void showComboBox(){
         arrayList = connect.getFaculty();
@@ -168,10 +172,10 @@ public class Register extends javax.swing.JFrame {
     
     
     /*
-        Tên hàm: btnCancelActionPerformed
-        Mô tả: Lắng nghe sự kiện click button cancel để thực thi
-        Kiểu trả về: không có
-        Tham số: java.awt.event.ActionEvent evt - Sự kiện khi nhấn vào
+        Name: btnCancelActionPerformed
+        Description: Execute when click button
+        Return: null
+        Parameter: java.awt.event.ActionEvent evt - event when click button
     */
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         // TODO add your handling code here
@@ -180,6 +184,13 @@ public class Register extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnCancelActionPerformed
 
+    /*
+        Name checkConfirmPass
+        Description: Check password and Confirm password
+        Return: True/False
+        Parameter:  String passA
+        Parameter:  String passB
+    */
     private boolean checkConfirmPass(String passA, String passB)
     {
         boolean result = false;
@@ -190,10 +201,15 @@ public class Register extends javax.swing.JFrame {
         return result;
     }
     /*
-        Tên hàm: btnCancelActionPerformed
-        Mô tả: Lắng nghe sự kiện click button cancel để thực thi
-        Kiểu trả về: không có
-        Tham số: java.awt.event.ActionEvent evt - Sự kiện khi nhấn vào
+        Name: btnCancelActionPerformed
+        Description: Execute when click button
+        Return: null
+        Parameter: java.awt.event.ActionEvent evt - event 
+        2.a.1, 2.a.2, 2.a.3, 2.a.4, 2.a.7, 2.a.6
+        (2) Xử lý đăng nhập					
+        2. Xử lý check			
+        a. Check hạng mục					
+
     */
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
         // TODO add your handling code here:
@@ -202,17 +218,25 @@ public class Register extends javax.swing.JFrame {
         String passwordR = new String(txtPassword.getPassword());        
         String passwordRCF = new String(txtPasswordCF.getPassword());
         String faculty = (String)cbFaculty.getSelectedItem();
-        
-        if (userNameR.equals("") || passwordR.equals("") || passwordRCF.equals("")){ //Kiểm tra không bỏ trống
-            JOptionPane.showMessageDialog(null, Constant.LOGIN_EMPTY);
+        // Check hạng mục 1
+        if (userNameR.equals("") || passwordR.equals("") || passwordRCF.equals("")){ //check empty
+            JOptionPane.showMessageDialog(null, Constant.REGISTER_EMPTY);
         }else{
-            if (checkConfirmPass(passwordR, passwordRCF) == false)      //Kiểm tra field pass và pass confirm
+            if (checkConfirmPass(passwordR, passwordRCF) == false)      //Check pass and confirm password
             {
                 JOptionPane.showMessageDialog(null, Constant.REGISTER_E001);
             }else{
-                ConnectDB connect = new ConnectDB();
-                connect.getConnect();
-                connect.addUser(userNameR, passwordR, faculty);
+                if (checkAll.checkSpecialValue(userNameR) == true){ //Check special value
+                    JOptionPane.showMessageDialog(null, Constant.REGISTER_E003);
+                }else{
+                    if (checkAll.checkLength(userNameR) == true){   //Check length
+                        JOptionPane.showMessageDialog(null, Constant.REGISTER_E004);
+                    }else{
+                        connect.getConnect();
+                        connect.addUser(userNameR, passwordR, faculty);
+                    }
+                }
+                
                 
             }
         }

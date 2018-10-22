@@ -3,6 +3,7 @@ package model;
 import view.AdminManager;
 import view.Login;
 
+
 /** Mô tả: Chương trình quản lý sinh viên
  *  Tác giả: Đổng Kiến Lợi
  *  Email: kienloi10@gmail.com
@@ -22,10 +23,10 @@ public class Main{
     public static void main(String[] args) {
         // TODO code application logic here
        
-        Login lg = new Login();
-        lg.setVisible(true);
-//        AdminManager fm = new AdminManager();
-//        fm.setVisible(true);
+//        Login lg = new Login();
+//        lg.setVisible(true);
+        AdminManager admin = new AdminManager();
+        admin.setVisible(true);
     }
     
 }

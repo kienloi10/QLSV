@@ -5,6 +5,7 @@
  */
 package view;
 
+import java.awt.GridBagLayout;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -24,15 +25,35 @@ public class AdminManager extends javax.swing.JFrame {
     /**
      * Creates new form AdminManager
      */
-    List<Faculty> arrayList = new ArrayList<Faculty>();
-    ConnectDB connect = new ConnectDB();
-    CheckAll checkAll = new CheckAll();
-    ClassFrame classFrame = new ClassFrame();
+ 
+
+    
+    GridBagLayout layout = new GridBagLayout();
+    ClassFrame classFrame;
+    FacultyFrame facultyFrame;
+    UserFrame userFrame;
     
     public AdminManager() {
         initComponents();
-        connect.getConnect();
-        showFacultyInTable();
+        setLocationRelativeTo(this);
+        setResizable(false);
+
+        //Show frame 
+        facultyFrame = new FacultyFrame();
+        panelFaculty.setLayout(layout);
+        panelFaculty.add(facultyFrame);
+        panelFaculty.setVisible(true);
+        
+        classFrame = new ClassFrame();
+        panelClass.setLayout(layout);
+        panelClass.add(classFrame);
+        panelClass.setVisible(true);
+        
+        userFrame = new UserFrame();
+        panelUser.setLayout(layout);
+        panelUser.add(userFrame);
+        panelUser.setVisible(true);
+        
     }
 
     /**
@@ -46,30 +67,10 @@ public class AdminManager extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jTabbedPane2 = new javax.swing.JTabbedPane();
+        tbClass = new javax.swing.JTabbedPane();
         panelFaculty = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tableFaculty = new javax.swing.JTable();
-        btnAddFaculty = new javax.swing.JButton();
-        btnDelFaculty = new javax.swing.JButton();
-        txtCodeFaculty = new javax.swing.JTextField();
-        txtNameFaculty = new javax.swing.JTextField();
-        btnRefesh = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tbUser = new javax.swing.JTable();
-        txtPassword = new javax.swing.JTextField();
-        txtcodeFaculty = new javax.swing.JTextField();
-        txtUsername = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        panelClass = new javax.swing.JPanel();
+        panelUser = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -88,50 +89,14 @@ public class AdminManager extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel3.setText("MÃ KHOA");
-
-        jLabel4.setText("TÊN KHOA");
-
-        tableFaculty.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Mã khoa", "Tên khoa"
-            }
-        ));
-        tableFaculty.addMouseListener(new java.awt.event.MouseAdapter() {
+        tbClass.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tableFacultyMouseClicked(evt);
+                tbClassMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tableFaculty);
-
-        btnAddFaculty.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/Window-Add-icon.png"))); // NOI18N
-        btnAddFaculty.setText("THÊM");
-        btnAddFaculty.setIconTextGap(9);
-        btnAddFaculty.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddFacultyActionPerformed(evt);
-            }
-        });
-
-        btnDelFaculty.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/delete-file-icon.png"))); // NOI18N
-        btnDelFaculty.setText("XÓA");
-        btnDelFaculty.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDelFacultyActionPerformed(evt);
-            }
-        });
-
-        btnRefesh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/database-refresh-icon.png"))); // NOI18N
-        btnRefesh.setText("TẢI LẠI");
-        btnRefesh.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRefeshActionPerformed(evt);
+        tbClass.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                tbClassComponentShown(evt);
             }
         });
 
@@ -139,159 +104,40 @@ public class AdminManager extends javax.swing.JFrame {
         panelFaculty.setLayout(panelFacultyLayout);
         panelFacultyLayout.setHorizontalGroup(
             panelFacultyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelFacultyLayout.createSequentialGroup()
-                .addGroup(panelFacultyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelFacultyLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE))
-                    .addGroup(panelFacultyLayout.createSequentialGroup()
-                        .addGroup(panelFacultyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelFacultyLayout.createSequentialGroup()
-                                .addGap(57, 57, 57)
-                                .addGroup(panelFacultyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(panelFacultyLayout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtNameFaculty))
-                                    .addGroup(panelFacultyLayout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtCodeFaculty, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(panelFacultyLayout.createSequentialGroup()
-                                .addGap(106, 106, 106)
-                                .addComponent(btnAddFaculty)
-                                .addGap(46, 46, 46)
-                                .addComponent(btnDelFaculty)
-                                .addGap(33, 33, 33)
-                                .addComponent(btnRefesh)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+            .addGap(0, 581, Short.MAX_VALUE)
         );
         panelFacultyLayout.setVerticalGroup(
             panelFacultyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelFacultyLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(panelFacultyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtCodeFaculty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(panelFacultyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelFacultyLayout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(panelFacultyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(txtNameFaculty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(82, 82, 82)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(panelFacultyLayout.createSequentialGroup()
-                        .addGap(82, 82, 82)
-                        .addGroup(panelFacultyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnAddFaculty)
-                            .addComponent(btnDelFaculty)
-                            .addComponent(btnRefesh))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-        );
-
-        jTabbedPane2.addTab("KHOA", panelFaculty);
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 581, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 459, Short.MAX_VALUE)
         );
 
-        jTabbedPane2.addTab("LỚP", jPanel4);
+        tbClass.addTab("KHOA", panelFaculty);
 
-        jLabel5.setText("Tên đăng nhập");
-
-        jLabel6.setText("Mật khẩu");
-
-        jLabel7.setText("Khoa");
-
-        tbUser.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Tên đăng nhập", "Mật khẩu", "Mã khoa"
-            }
-        ));
-        jScrollPane2.setViewportView(tbUser);
-
-        jButton1.setText("Chỉnh sửa");
-
-        jButton2.setText("Xóa");
-
-        jButton3.setText("Tải lại");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(71, 71, 71)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel5)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addComponent(jButton1))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(47, 47, 47)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtcodeFaculty, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(56, 56, 56)
-                                .addComponent(jButton2)
-                                .addGap(57, 57, 57)
-                                .addComponent(jButton3))))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 553, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(18, Short.MAX_VALUE))
+        javax.swing.GroupLayout panelClassLayout = new javax.swing.GroupLayout(panelClass);
+        panelClass.setLayout(panelClassLayout);
+        panelClassLayout.setHorizontalGroup(
+            panelClassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 581, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel5)
-                            .addGap(48, 48, 48))
-                        .addComponent(jLabel6))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addComponent(txtcodeFaculty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
-                .addGap(29, 29, 29)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+        panelClassLayout.setVerticalGroup(
+            panelClassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 459, Short.MAX_VALUE)
         );
 
-        jTabbedPane2.addTab("USER", jPanel2);
+        tbClass.addTab("LỚP", panelClass);
+
+        javax.swing.GroupLayout panelUserLayout = new javax.swing.GroupLayout(panelUser);
+        panelUser.setLayout(panelUserLayout);
+        panelUserLayout.setHorizontalGroup(
+            panelUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 581, Short.MAX_VALUE)
+        );
+        panelUserLayout.setVerticalGroup(
+            panelUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 459, Short.MAX_VALUE)
+        );
+
+        tbClass.addTab("USER", panelUser);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("ADMIN");
@@ -303,76 +149,35 @@ public class AdminManager extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(jTabbedPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(tbClass, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane2))
+                .addComponent(tbClass))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAddFacultyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddFacultyActionPerformed
+    private void tbClassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbClassMouseClicked
         // TODO add your handling code here:
-        String codeFaculty = txtCodeFaculty.getText().trim();
-        String nameFaculty = txtNameFaculty.getText().trim();
-        if (codeFaculty.equals("") || nameFaculty.equals("")){ // Kiểm tra rỗng 
-            JOptionPane.showMessageDialog(null, Constant.FACULTY_E001);
-        }else{
-            if (checkAll.checkSpecialValue(codeFaculty) == true || checkAll.checkSpecialValue(nameFaculty) == true){    //Kiểm tra ký tự đặc biệt
-                JOptionPane.showMessageDialog(null, Constant.FACULTY_E002);
-            }else{
-                connect.getConnect();
-                connect.addFaculty(codeFaculty, nameFaculty);
-            }
-            
-        }
         
-    }//GEN-LAST:event_btnAddFacultyActionPerformed
+    }//GEN-LAST:event_tbClassMouseClicked
 
-    private void tableFacultyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableFacultyMouseClicked
+    private void tbClassComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_tbClassComponentShown
         // TODO add your handling code here:
-        int i = tableFaculty.getSelectedRow();
-        TableModel model = tableFaculty.getModel();
-        txtCodeFaculty.setText(model.getValueAt(i, 0).toString());
-        txtNameFaculty.setText(model.getValueAt(i, 1).toString());
-
-    }//GEN-LAST:event_tableFacultyMouseClicked
-
-    private void btnRefeshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefeshActionPerformed
-        // TODO add your handling code here:
-        connect.getConnect();
-        showFacultyInTable();
-    }//GEN-LAST:event_btnRefeshActionPerformed
-
-    private void btnDelFacultyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelFacultyActionPerformed
-        // TODO add your handling code here:
-        String codeFaculty = txtCodeFaculty.getText().trim();
-        connect.getConnect();
-        connect.deleteFaculty(codeFaculty);
-    }//GEN-LAST:event_btnDelFacultyActionPerformed
+    }//GEN-LAST:event_tbClassComponentShown
 
     public void clearTable(DefaultTableModel tb) {
         tb.setRowCount(0);
     }
     
-    private void showFacultyInTable(){
-        arrayList = connect.getFaculty();
-        DefaultTableModel model = (DefaultTableModel)tableFaculty.getModel();
-        clearTable(model);
-        Object[] row = new Object[2];
-        for (int i = 0; i < arrayList.size(); i++){
-            row[0] = arrayList.get(i).getCodeFaculty();
-            row[1] = arrayList.get(i).getNameFaculty();
-            
-            model.addRow(row);            
-        }
+   
         
-    }
+    
     /**
      * @param args the command line arguments
      */
@@ -410,32 +215,12 @@ public class AdminManager extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddFaculty;
-    private javax.swing.JButton btnDelFaculty;
-    private javax.swing.JButton btnRefesh;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTabbedPane jTabbedPane2;
+    private javax.swing.JPanel panelClass;
     private javax.swing.JPanel panelFaculty;
-    private javax.swing.JTable tableFaculty;
-    private javax.swing.JTable tbUser;
-    private javax.swing.JTextField txtCodeFaculty;
-    private javax.swing.JTextField txtNameFaculty;
-    private javax.swing.JTextField txtPassword;
-    private javax.swing.JTextField txtUsername;
-    private javax.swing.JTextField txtcodeFaculty;
+    private javax.swing.JPanel panelUser;
+    private javax.swing.JTabbedPane tbClass;
     // End of variables declaration//GEN-END:variables
 }

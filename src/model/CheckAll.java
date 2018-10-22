@@ -5,6 +5,8 @@
  */
 package model;
 
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author HP
@@ -49,5 +51,9 @@ public class CheckAll {
             result = true;
         }
         return result;
+    }
+    
+    public void clearTable(DefaultTableModel tb) {
+        tb.setRowCount(0);
     }
 }
