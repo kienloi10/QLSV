@@ -33,7 +33,7 @@ public final class Constant {
     public final static String REGISTER_E004 = "Username too long length";
     public final static String REGISTER_SUCCESS = "Register successfully";
     
-    //Lỗi trong view AdminManager
+    //Lỗi trong view Faculty
     public final static String FACULTY_ADD_SUCCESS = "Add successfully";
     public final static String FACULTY_ADD_FAILED = "Add failed";
 
@@ -42,5 +42,9 @@ public final class Constant {
 
     public final static String FACULTY_DEL_SUCCESS = "Delete successfully";
     public final static String FACULTY_DEL_FAILED = "Delete failed";
-
+    
+    //Lỗi trong view User
+    public final static String USER_UPDATESUCCESS = "Update user successfully";
+    public final static String USER_E001 = "Update failed";
+    public final static String USER_E002 = "Username or password empty";
 }

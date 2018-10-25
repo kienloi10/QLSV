@@ -184,7 +184,7 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         String user = txtUsername.getText().trim();
         String pass = new String(txtPassword.getPassword());        
-        if (user.equals("") || pass.equals(""))     //Kiểm tra bỏ trống username và password
+        if (checkAll.checkEmpty(user) || checkAll.checkEmpty(pass))     //Kiểm tra bỏ trống username và password
         {
             JOptionPane.showMessageDialog(null,Constant.LOGIN_EMPTY);           
         }else{           

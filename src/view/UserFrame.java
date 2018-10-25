@@ -7,10 +7,12 @@ package view;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import model.CheckAll;
 import model.ConnectDB;
+import model.Constant;
 import model.Faculty;
 import model.User;
 
@@ -81,6 +83,11 @@ public class UserFrame extends javax.swing.JPanel {
 
         btnUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/Edit-validated-icon.png"))); // NOI18N
         btnUpdate.setText("SỬA");
+        btnUpdate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnUpdateMouseClicked(evt);
+            }
+        });
 
         btnDel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/delete-file-icon.png"))); // NOI18N
         btnDel.setText("XÓA");
@@ -165,6 +172,17 @@ public class UserFrame extends javax.swing.JPanel {
         txtPassword.setText(model.getValueAt(i, 1).toString());
         txtCodeFaculty.setText(model.getValueAt(i, 2).toString());
     }//GEN-LAST:event_tableUserMouseClicked
+
+    private void btnUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUpdateMouseClicked
+        // TODO add your handling code here:
+        String username = txtUsername.getText().trim();
+        String password = txtPassword.getText().trim();
+        if (checkAll.checkEmpty(username) || checkAll.checkEmpty(password)){
+            JOptionPane.showMessageDialog(null, Constant.USER_E002);
+        }else{
+            
+        }
+    }//GEN-LAST:event_btnUpdateMouseClicked
 
     
      private void showUserInTable(){

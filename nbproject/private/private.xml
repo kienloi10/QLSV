@@ -4,11 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/Nam%204/KTLTHDT/QLSV/src/view/AdminManager.java</file>
-            <file>file:/D:/Nam%204/KTLTHDT/QLSV/src/model/Constant.java</file>
+            <file>file:/D:/Nam%204/KTLTHDT/QLSV/src/model/User.java</file>
             <file>file:/D:/Nam%204/KTLTHDT/QLSV/src/model/CheckAll.java</file>
             <file>file:/D:/Nam%204/KTLTHDT/QLSV/src/model/ConnectDB.java</file>
             <file>file:/D:/Nam%204/KTLTHDT/QLSV/src/model/Main.java</file>
-            <file>file:/D:/Nam%204/KTLTHDT/QLSV/src/view/Login.java</file>
             <file>file:/D:/Nam%204/KTLTHDT/QLSV/src/view/UserFrame.java</file>
             <file>file:/D:/Nam%204/KTLTHDT/QLSV/src/view/FacultyFrame.java</file>
         </group>

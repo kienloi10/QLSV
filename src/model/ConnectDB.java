@@ -211,4 +211,20 @@ public class ConnectDB {
         return null;
     }
     
+    
+    public void updateUsers(String username, String password){
+        try{
+            st = con.createStatement();
+            String query = "UPDATE USERS SET PASSWORD = '" + password + "'  WHERE USERNAME = '" + username + "'";
+            result = st.executeUpdate(query);
+            if (result == 1){
+                JOptionPane.showMessageDialog(null, Constant.USER_UPDATESUCCESS);
+            }else{
+                JOptionPane.showMessageDialog(null, Constant.USER_E001);
+            }
+        }catch(Exception ex){
+            System.out.println(ex);
+        }
+    }
+    
 }

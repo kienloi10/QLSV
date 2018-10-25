@@ -56,4 +56,12 @@ public class CheckAll {
     public void clearTable(DefaultTableModel tb) {
         tb.setRowCount(0);
     }
+    
+    public boolean checkEmpty(String s){
+        boolean result = false;
+        if (s.equals("")){
+            result = true;
+        }
+        return result;
+    }
 }

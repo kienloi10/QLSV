@@ -170,7 +170,7 @@ public class FacultyFrame extends javax.swing.JPanel {
         // TODO add your handling code here:
         String codeFaculty = txtCodeFaculty.getText().trim();
         String nameFaculty = txtNameFaculty.getText().trim();
-        if (codeFaculty.equals("") || nameFaculty.equals("")){ // Kiểm tra rỗng 
+        if (checkAll.checkEmpty(codeFaculty) || checkAll.checkEmpty(nameFaculty)){ // Kiểm tra rỗng 
             JOptionPane.showMessageDialog(null, Constant.FACULTY_E001);
         }else{
             if (checkAll.checkSpecialValue(codeFaculty) == true){    //Kiểm tra ký tự đặc biệt

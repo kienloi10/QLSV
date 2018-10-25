@@ -219,7 +219,7 @@ public class Register extends javax.swing.JFrame {
         String passwordRCF = new String(txtPasswordCF.getPassword());
         String faculty = (String)cbFaculty.getSelectedItem();
         // Check hạng mục 1
-        if (userNameR.equals("") || passwordR.equals("") || passwordRCF.equals("")){ //check empty
+        if (checkAll.checkEmpty(userNameR) || checkAll.checkEmpty(passwordR) || checkAll.checkEmpty(passwordRCF)){ //check empty
             JOptionPane.showMessageDialog(null, Constant.REGISTER_EMPTY);
         }else{
             if (checkConfirmPass(passwordR, passwordRCF) == false)      //Check pass and confirm password
