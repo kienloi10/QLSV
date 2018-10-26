@@ -227,4 +227,19 @@ public class ConnectDB {
         }
     }
     
+    public void deleteUser(String username){
+        try{
+            st = con.createStatement();
+            String query = "DELETE FROM USERS WHERE USERNAME ='" + username + "'";
+            result = st.executeUpdate(query);
+            if (result == 1){
+                JOptionPane.showMessageDialog(null, Constant.USER_DEL_SUCCESS);                
+            }else{
+                JOptionPane.showMessageDialog(null, Constant.USER_DEL_FAILED);                
+            }
+            
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    }
 }

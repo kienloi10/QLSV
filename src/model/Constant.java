@@ -40,11 +40,16 @@ public final class Constant {
     public final static String FACULTY_E001 = "Empty CodeFaculty or NameFaculty";
     public final static String FACULTY_E002 = "CodeFaculty or NameFaculty has a special character";
 
-    public final static String FACULTY_DEL_SUCCESS = "Delete successfully";
-    public final static String FACULTY_DEL_FAILED = "Delete failed";
+    public final static String FACULTY_DEL_SUCCESS = "Delete faculty successfully";
+    public final static String FACULTY_DEL_FAILED = "Delete faculty failed";
     
     //Lỗi trong view User
     public final static String USER_UPDATESUCCESS = "Update user successfully";
     public final static String USER_E001 = "Update failed";
     public final static String USER_E002 = "Username or password empty";
+    public final static String USER_E003 = "Username or password has a special character";
+    public final static String USER_QUESTION = "Do you want delete?";
+    
+    public final static String USER_DEL_SUCCESS = "Delete user successfully";
+    public final static String USER_DEL_FAILED = "Delete user failed";
 }

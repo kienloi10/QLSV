@@ -184,11 +184,19 @@ public class FacultyFrame extends javax.swing.JPanel {
 
     private void btnDelFacultyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelFacultyActionPerformed
         // TODO add your handling code here:
+        int yesNo = JOptionPane.showConfirmDialog(null, Constant.USER_QUESTION);
+        if(yesNo == 0){
+             delFaculty();
+        }else{
+            showFacultyInTable();
+        }
+    }//GEN-LAST:event_btnDelFacultyActionPerformed
+
+    private void delFaculty(){
         String codeFaculty = txtCodeFaculty.getText().trim();
         connect.getConnect();
         connect.deleteFaculty(codeFaculty);
-    }//GEN-LAST:event_btnDelFacultyActionPerformed
-
+    }
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
         // TODO add your handling code here:
         connect.getConnect();

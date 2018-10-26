@@ -32,6 +32,7 @@ public class AdminManager extends javax.swing.JFrame {
     ClassFrame classFrame;
     FacultyFrame facultyFrame;
     UserFrame userFrame;
+    Login login;
     
     public AdminManager() {
         initComponents();
@@ -72,6 +73,7 @@ public class AdminManager extends javax.swing.JFrame {
         panelClass = new javax.swing.JPanel();
         panelUser = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        btnLogOut = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setText("FACULTY");
@@ -108,7 +110,7 @@ public class AdminManager extends javax.swing.JFrame {
         );
         panelFacultyLayout.setVerticalGroup(
             panelFacultyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 459, Short.MAX_VALUE)
+            .addGap(0, 453, Short.MAX_VALUE)
         );
 
         tbClass.addTab("KHOA", panelFaculty);
@@ -121,7 +123,7 @@ public class AdminManager extends javax.swing.JFrame {
         );
         panelClassLayout.setVerticalGroup(
             panelClassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 459, Short.MAX_VALUE)
+            .addGap(0, 453, Short.MAX_VALUE)
         );
 
         tbClass.addTab("LỚP", panelClass);
@@ -134,7 +136,7 @@ public class AdminManager extends javax.swing.JFrame {
         );
         panelUserLayout.setVerticalGroup(
             panelUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 459, Short.MAX_VALUE)
+            .addGap(0, 453, Short.MAX_VALUE)
         );
 
         tbClass.addTab("USER", panelUser);
@@ -142,19 +144,30 @@ public class AdminManager extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("ADMIN");
 
+        btnLogOut.setText("Đăng xuất");
+        btnLogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogOutActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnLogOut)
+                .addContainerGap())
             .addComponent(tbClass, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jLabel2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(btnLogOut))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tbClass))
         );
@@ -170,6 +183,13 @@ public class AdminManager extends javax.swing.JFrame {
     private void tbClassComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_tbClassComponentShown
         // TODO add your handling code here:
     }//GEN-LAST:event_tbClassComponentShown
+
+    private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
+        // TODO add your handling code here:
+        login = new Login();
+        login.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnLogOutActionPerformed
 
     public void clearTable(DefaultTableModel tb) {
         tb.setRowCount(0);
@@ -215,6 +235,7 @@ public class AdminManager extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLogOut;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

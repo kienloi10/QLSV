@@ -197,7 +197,7 @@ public class Login extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, Constant.LOGIN_E004);
                     }else{
                         connect.getConnect();
-                        connect.checkLogin(user,pass);
+                        connect.checkLogin(user,pass);                       
                     }
                 }   
             }

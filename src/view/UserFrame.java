@@ -26,12 +26,15 @@ public class UserFrame extends javax.swing.JPanel {
      * Creates new form UserFrame
      */
     List<User> arrayList = new ArrayList<User>();
-    ConnectDB connect = new ConnectDB();
+    ConnectDB connect;
     CheckAll checkAll = new CheckAll();
     public UserFrame() {
         initComponents();
+        connect = new ConnectDB();
         connect.getConnect();
         showUserInTable();
+        
+        txtCodeFaculty.setEnabled(false);
     }
 
     /**
@@ -91,6 +94,11 @@ public class UserFrame extends javax.swing.JPanel {
 
         btnDel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/delete-file-icon.png"))); // NOI18N
         btnDel.setText("XÓA");
+        btnDel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDelMouseClicked(evt);
+            }
+        });
 
         btnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/database-refresh-icon.png"))); // NOI18N
         btnRefresh.setText("TẢI LẠI");
@@ -180,10 +188,31 @@ public class UserFrame extends javax.swing.JPanel {
         if (checkAll.checkEmpty(username) || checkAll.checkEmpty(password)){
             JOptionPane.showMessageDialog(null, Constant.USER_E002);
         }else{
-            
+            if (checkAll.checkSpecialValue(username) || checkAll.checkSpecialValue(password)){
+                JOptionPane.showMessageDialog(null, Constant.USER_E003);
+            }else{
+                connect.getConnect();
+                connect.updateUsers(username, password);
+            }
         }
     }//GEN-LAST:event_btnUpdateMouseClicked
 
+    private void btnDelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDelMouseClicked
+        // TODO add your handling code here:
+        int yesNo = JOptionPane.showConfirmDialog(null, Constant.USER_QUESTION);
+        if(yesNo == 0){
+             delUser();
+        }else{
+            showUserInTable();
+        }
+        
+    }//GEN-LAST:event_btnDelMouseClicked
+
+    private void delUser(){
+        String delUser = txtUsername.getText().trim();
+        connect.getConnect();
+        connect.deleteUser(delUser);
+    }
     
      private void showUserInTable(){
         arrayList = connect.getUser();
