@@ -242,4 +242,23 @@ public class ConnectDB {
             System.out.println(e);
         }
     }
+    
+    public List<Classes> getClasses(String nameFaculty){
+        List<Classes> arrayList = new ArrayList<Classes>();
+        try{
+            st = con.createStatement();
+            String query = "SELECT MALOP, TENLOP, LOP.MAKHOA "
+                    + "FROM LOP, KHOA "
+                    + "WHERE LOP.MAKHOA = KHOA.MAKHOA AND KHOA.TENKHOA = N'" + nameFaculty + "'";
+            rs = st.executeQuery(query);
+            while(rs.next()){            
+                arrayList.add(new Classes(rs.getString(1), rs.getString(2), rs.getString(3)));
+            }         
+            return arrayList;   
+
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        return null;
+    }
 }

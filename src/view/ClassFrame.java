@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import model.CheckAll;
+import model.Classes;
 import model.ConnectDB;
 import model.Faculty;
 
@@ -21,12 +22,14 @@ public class ClassFrame extends javax.swing.JPanel {
 
     ConnectDB connect = new ConnectDB();
     CheckAll checkAll = new CheckAll();
-    List<Faculty> arrayList = new ArrayList<Faculty>();
+    List<Faculty> arrListFaculty = new ArrayList<Faculty>();
+    List<Classes> arrListClass = new ArrayList<Classes>();
+    String faculty = "";
     /** Creates new form ClassPanel */
     public ClassFrame() {
         initComponents();
         connect.getConnect();
-        showComboBox();
+        showComboBox();      
     }
 
     /** This method is called from within the constructor to
@@ -56,6 +59,12 @@ public class ClassFrame extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(581, 453));
+
+        cbFaculty.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbFacultyActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Lọc lớp");
@@ -209,22 +218,23 @@ public class ClassFrame extends javax.swing.JPanel {
         Parameter: null
     */
     public void showComboBox(){
-        arrayList = connect.getFaculty();
-        for(int i = 0; i < arrayList.size(); i++)
+        arrListFaculty = connect.getFaculty();
+        for(int i = 0; i < arrListFaculty.size(); i++)
         {
-            cbFaculty.addItem(arrayList.get(i).getNameFaculty());
+            cbFaculty.addItem(arrListFaculty.get(i).getNameFaculty());
         }
         
     }
     
-    private void showFacultyInTable(){
-        arrayList = connect.getFaculty();
+    private void showClassInTable(){
+        arrListClass = connect.getClasses(faculty);
         DefaultTableModel model = (DefaultTableModel)tableClass.getModel();
         checkAll.clearTable(model);
-        Object[] row = new Object[2];
-        for (int i = 0; i < arrayList.size(); i++){
-            row[0] = arrayList.get(i).getCodeFaculty();
-            row[1] = arrayList.get(i).getNameFaculty();
+        Object[] row = new Object[3];
+        for (int i = 0; i < arrListClass.size(); i++){
+            row[0] = arrListClass.get(i).getCodeClass();
+            row[1] = arrListClass.get(i).getNameClass();
+            row[2] = arrListClass.get(i).getCodeFaculty();
             
             model.addRow(row);            
         }
@@ -234,6 +244,12 @@ public class ClassFrame extends javax.swing.JPanel {
     private void txtNameClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameClassActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNameClassActionPerformed
+
+    private void cbFacultyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbFacultyActionPerformed
+        // TODO add your handling code here:
+        faculty = (String)cbFaculty.getSelectedItem();  
+        showClassInTable();
+    }//GEN-LAST:event_cbFacultyActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
