@@ -43,6 +43,9 @@ public final class Constant {
     public final static String FACULTY_DEL_SUCCESS = "Delete faculty successfully";
     public final static String FACULTY_DEL_FAILED = "Delete faculty failed";
     
+    public final static String FACULTY_UPDATE_SUCCESS = "Update faculty successfully";
+    public final static String FACULTY_UPDATE_FAILED = "Update faculty failed";
+    
     //Lỗi trong view User
     public final static String USER_UPDATESUCCESS = "Update user successfully";
     public final static String USER_E001 = "Update failed";
@@ -52,4 +55,22 @@ public final class Constant {
     
     public final static String USER_DEL_SUCCESS = "Delete user successfully";
     public final static String USER_DEL_FAILED = "Delete user failed";
+    
+    
+    
+    //Lỗi trong view Class
+    public final static String CLASS_E001 = "CodeClass or NameClass empty";
+    public final static String CLASS_E002 = "CodeClass or NameClass has a special character";
+    
+    public final static String CLASS_ADD_SUCCESS = "Add class successfully";
+    public final static String CLASS_ADD_FAILED = "Add class failed";
+    
+    public final static String CLASS_DEL_SUCCESS = "Delete class successfully";
+    public final static String CLASS_DEL_FAILED = "Delete class failed";
+    
+    public final static String CLASS_UPDATE_SUCCESS = "Update class successfully";
+    public final static String CLASS_UPDATE_FAILED = "Update class failed";
+    
 }
+
+

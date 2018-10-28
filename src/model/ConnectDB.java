@@ -173,20 +173,36 @@ public class ConnectDB {
     
     public void deleteFaculty(String codeFaculty){
         try{
-            st = con.createStatement();
-            String query = "DELETE FROM KHOA WHERE MAKHOA ='" + codeFaculty + "'";
-            result = st.executeUpdate(query);
-            if (result == 1){
-                JOptionPane.showMessageDialog(null, Constant.FACULTY_DEL_SUCCESS);                
+            String query = "{call SP_XOAKHOA(?)}";
+            cs = con.prepareCall(query);
+            cs.setString(1,codeFaculty);
+            result = cs.executeUpdate();           
+            if (result == 1)
+            {
+                JOptionPane.showMessageDialog(null, Constant.FACULTY_DEL_SUCCESS);
             }else{
-                JOptionPane.showMessageDialog(null, Constant.FACULTY_DEL_FAILED);                
+                JOptionPane.showMessageDialog(null, Constant.FACULTY_DEL_FAILED);
             }
-            
+                    
         }catch(Exception e){
             System.out.println(e);
         }
     }
-    
+        
+    public void updateFaculty(String codeFaculty,String nameFaculty){
+        try{
+            st = con.createStatement();
+            String query = "UPDATE KHOA SET TENKHOA = N'" + nameFaculty + "'  WHERE MAKHOA = '" + codeFaculty + "'";
+            result = st.executeUpdate(query);
+            if (result == 1){
+                JOptionPane.showMessageDialog(null, Constant.FACULTY_UPDATE_SUCCESS);
+            }else{
+                JOptionPane.showMessageDialog(null, Constant.FACULTY_UPDATE_FAILED);
+            }
+        }catch(Exception ex){
+            System.out.println(ex);
+        }
+    }
     
     /*
         Name: getUser
@@ -260,5 +276,58 @@ public class ConnectDB {
             System.out.println(e);
         }
         return null;
+    }
+    
+    public void addClass(String codeClass, String nameClass, String codeFaculty){
+        try{
+            String query = "{call SP_THEMCLASS(?,?,?)}";
+            cs = con.prepareCall(query);
+            cs.setString(1,codeClass);
+            cs.setString(2, nameClass);
+            cs.setString(3, codeFaculty);
+            result = cs.executeUpdate();           
+            if (result == 1)
+            {
+                JOptionPane.showMessageDialog(null, Constant.CLASS_ADD_SUCCESS);
+            }else{
+                JOptionPane.showMessageDialog(null, Constant.CLASS_ADD_FAILED);
+            }
+                    
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    }
+    
+    public void deleteClass(String codeClass){
+        try{
+            String query = "{call SP_XOALOP(?)}";
+            cs = con.prepareCall(query);
+            cs.setString(1,codeClass);
+            result = cs.executeUpdate();           
+            if (result == 1)
+            {
+                JOptionPane.showMessageDialog(null, Constant.CLASS_DEL_SUCCESS);
+            }else{
+                JOptionPane.showMessageDialog(null, Constant.CLASS_DEL_FAILED);
+            }
+                    
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    }
+    
+    public void updateClass(String codeClass,String nameClass){
+        try{
+            st = con.createStatement();
+            String query = "UPDATE LOP SET TENLOP = N'" + nameClass + "'  WHERE MALOP = '" + codeClass + "'";
+            result = st.executeUpdate(query);
+            if (result == 1){
+                JOptionPane.showMessageDialog(null, Constant.CLASS_UPDATE_SUCCESS);
+            }else{
+                JOptionPane.showMessageDialog(null, Constant.CLASS_UPDATE_FAILED);
+            }
+        }catch(Exception ex){
+            System.out.println(ex);
+        }
     }
 }

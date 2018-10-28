@@ -8,10 +8,13 @@ package view;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import model.CheckAll;
 import model.Classes;
 import model.ConnectDB;
+import model.Constant;
 import model.Faculty;
 
 /**
@@ -24,12 +27,18 @@ public class ClassFrame extends javax.swing.JPanel {
     CheckAll checkAll = new CheckAll();
     List<Faculty> arrListFaculty = new ArrayList<Faculty>();
     List<Classes> arrListClass = new ArrayList<Classes>();
+    //Biến giữ khoa hiện tại
     String faculty = "";
+    //Biến mã lớp
+    String codeClass = "";
+    //Biến tên lớp
+    String nameClass = "";
     /** Creates new form ClassPanel */
     public ClassFrame() {
         initComponents();
         connect.getConnect();
-        showComboBox();      
+        showComboBox(); 
+
     }
 
     /** This method is called from within the constructor to
@@ -46,17 +55,15 @@ public class ClassFrame extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         txtCodeClass = new javax.swing.JTextField();
         txtNameClass = new javax.swing.JTextField();
-        txtCodeFaculty = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableClass = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         btnAdd = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
+        btnDel = new javax.swing.JButton();
+        btnRefresh = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(581, 453));
 
@@ -76,8 +83,6 @@ public class ClassFrame extends javax.swing.JPanel {
 
         jLabel3.setText("TÊN LỚP");
 
-        jLabel4.setText("MÃ KHOA");
-
         txtNameClass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNameClassActionPerformed(evt);
@@ -92,13 +97,11 @@ public class ClassFrame extends javax.swing.JPanel {
                 .addGap(33, 33, 33)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel4)
                     .addComponent(jLabel3))
-                .addGap(18, 18, 18)
+                .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtNameClass, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCodeClass, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCodeFaculty, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCodeClass, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -112,39 +115,60 @@ public class ClassFrame extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtNameClass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtCodeFaculty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
         tableClass.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Mã lớp", "Tên lớp", "Mã khoa"
+                "Mã lớp", "Tên lớp"
             }
         ));
+        tableClass.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableClassMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableClass);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Thao tác"));
 
         btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/Window-Add-icon.png"))); // NOI18N
         btnAdd.setText("THÊM");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/Edit-validated-icon.png"))); // NOI18N
-        jButton2.setText("SỬA");
+        btnUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/Edit-validated-icon.png"))); // NOI18N
+        btnUpdate.setText("SỬA");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/delete-file-icon.png"))); // NOI18N
-        jButton3.setText("XÓA");
+        btnDel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/delete-file-icon.png"))); // NOI18N
+        btnDel.setText("XÓA");
+        btnDel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDelActionPerformed(evt);
+            }
+        });
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/database-refresh-icon.png"))); // NOI18N
-        jButton1.setText("TẢI LẠI");
+        btnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/database-refresh-icon.png"))); // NOI18N
+        btnRefresh.setText("TẢI LẠI");
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -153,10 +177,10 @@ public class ClassFrame extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnDel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -165,11 +189,11 @@ public class ClassFrame extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(btnAdd)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(btnUpdate)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3)
+                .addComponent(btnDel)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(btnRefresh)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -237,8 +261,7 @@ public class ClassFrame extends javax.swing.JPanel {
             row[2] = arrListClass.get(i).getCodeFaculty();
             
             model.addRow(row);            
-        }
-        
+        }      
     }
     
     private void txtNameClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameClassActionPerformed
@@ -251,23 +274,84 @@ public class ClassFrame extends javax.swing.JPanel {
         showClassInTable();
     }//GEN-LAST:event_cbFacultyActionPerformed
 
+    private void tableClassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableClassMouseClicked
+        // TODO add your handling code here:
+        int i = tableClass.getSelectedRow();
+        TableModel model = tableClass.getModel();
+        txtCodeClass.setText(model.getValueAt(i, 0).toString());
+        txtNameClass.setText(model.getValueAt(i, 1).toString());              
+    }//GEN-LAST:event_tableClassMouseClicked
+
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        // TODO add your handling code here:
+        showClassInTable();
+    }//GEN-LAST:event_btnRefreshActionPerformed
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        // TODO add your handling code here:
+        codeClass = txtCodeClass.getText().trim();
+        nameClass = txtNameClass.getText().trim();
+        if (checkAll.checkEmpty(codeClass) || checkAll.checkEmpty(nameClass)){
+            JOptionPane.showMessageDialog(null, Constant.CLASS_E001);
+        }else{
+            if (checkAll.checkSpecialValue(codeClass) || checkAll.checkEmpty(nameClass)){
+                JOptionPane.showMessageDialog(null, Constant.CLASS_E002);
+            }else{
+                connect.getConnect();
+                connect.addClass(codeClass, nameClass, faculty);
+            }
+        }
+        
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void delClass(){
+        codeClass = txtCodeClass.getText().trim();
+        connect.getConnect();
+        connect.deleteClass(codeClass);
+    }
+    
+    private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
+        // TODO add your handling code here:
+        int yesNo = JOptionPane.showConfirmDialog(null, Constant.USER_QUESTION);
+        if(yesNo == 0){
+             delClass();
+        }else{
+            showClassInTable();
+        }
+    }//GEN-LAST:event_btnDelActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+        codeClass = txtCodeClass.getText().trim();
+        nameClass = txtNameClass.getText().trim();
+        if (checkAll.checkEmpty(codeClass) || checkAll.checkEmpty(nameClass)){
+            JOptionPane.showMessageDialog(null, Constant.CLASS_E001);
+        }else{
+            if (checkAll.checkSpecialValue(codeClass) || checkAll.checkEmpty(nameClass)){
+                JOptionPane.showMessageDialog(null, Constant.CLASS_E002);
+            }else{
+                connect.getConnect();
+                connect.updateClass(codeClass, nameClass);
+            }
+        }
+        
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnDel;
+    private javax.swing.JButton btnRefresh;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> cbFaculty;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableClass;
     private javax.swing.JTextField txtCodeClass;
-    private javax.swing.JTextField txtCodeFaculty;
     private javax.swing.JTextField txtNameClass;
     // End of variables declaration//GEN-END:variables
 

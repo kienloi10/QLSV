@@ -27,6 +27,10 @@ public class FacultyFrame extends javax.swing.JPanel {
     List<Faculty> arrayList = new ArrayList<Faculty>();
     ConnectDB connect = new ConnectDB();
     CheckAll checkAll = new CheckAll();
+    //Biến mã khoa
+    String codeFaculty = "";
+    //Biến tên khoa
+    String nameFaculty = "";
     public FacultyFrame() {
         initComponents();
         connect.getConnect();
@@ -48,6 +52,7 @@ public class FacultyFrame extends javax.swing.JPanel {
         btnAddFaculty = new javax.swing.JButton();
         btnDelFaculty = new javax.swing.JButton();
         btnRefresh = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtCodeFaculty = new javax.swing.JTextField();
@@ -100,6 +105,14 @@ public class FacultyFrame extends javax.swing.JPanel {
             }
         });
 
+        btnUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/Edit-validated-icon.png"))); // NOI18N
+        btnUpdate.setText("SỬA");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -109,7 +122,8 @@ public class FacultyFrame extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnDelFaculty, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAddFaculty, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnAddFaculty, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -118,8 +132,10 @@ public class FacultyFrame extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(btnAddFaculty)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnUpdate)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addComponent(btnDelFaculty)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnRefresh))
         );
 
@@ -172,7 +188,7 @@ public class FacultyFrame extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 532, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -180,10 +196,12 @@ public class FacultyFrame extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -208,8 +226,8 @@ public class FacultyFrame extends javax.swing.JPanel {
     
     private void btnAddFacultyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddFacultyActionPerformed
         // TODO add your handling code here:
-        String codeFaculty = txtCodeFaculty.getText().trim();
-        String nameFaculty = txtNameFaculty.getText().trim();
+        codeFaculty = txtCodeFaculty.getText().trim();
+        nameFaculty = txtNameFaculty.getText().trim();
         if (checkAll.checkEmpty(codeFaculty) || checkAll.checkEmpty(nameFaculty)){ // Kiểm tra rỗng 
             JOptionPane.showMessageDialog(null, Constant.FACULTY_E001);
         }else{
@@ -233,7 +251,7 @@ public class FacultyFrame extends javax.swing.JPanel {
     }//GEN-LAST:event_btnDelFacultyActionPerformed
 
     private void delFaculty(){
-        String codeFaculty = txtCodeFaculty.getText().trim();
+        codeFaculty = txtCodeFaculty.getText().trim();
         connect.getConnect();
         connect.deleteFaculty(codeFaculty);
     }
@@ -251,12 +269,29 @@ public class FacultyFrame extends javax.swing.JPanel {
         txtNameFaculty.setText(model.getValueAt(i, 1).toString());
     }//GEN-LAST:event_tableFacultyMouseClicked
 
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+        codeFaculty = txtCodeFaculty.getText().trim();
+        nameFaculty = txtNameFaculty.getText().trim();
+        if (checkAll.checkEmpty(codeFaculty) || checkAll.checkEmpty(nameFaculty)){ // Kiểm tra rỗng 
+            JOptionPane.showMessageDialog(null, Constant.FACULTY_E001);
+        }else{
+            if (checkAll.checkSpecialValue(codeFaculty) == true){    //Kiểm tra ký tự đặc biệt
+                JOptionPane.showMessageDialog(null, Constant.FACULTY_E002);
+            }else{
+                connect.getConnect();
+                connect.updateFaculty(codeFaculty, nameFaculty);
+            }
+         }
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddFaculty;
     private javax.swing.JButton btnDelFaculty;
     private javax.swing.JButton btnRefresh;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
