@@ -29,6 +29,7 @@ public class AdminManager extends javax.swing.JFrame {
 
     
     GridBagLayout layout = new GridBagLayout();
+
     ClassFrame classFrame;
     FacultyFrame facultyFrame;
     UserFrame userFrame;
@@ -38,23 +39,29 @@ public class AdminManager extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(this);
         setResizable(false);
+        
 
         //Show frame 
         facultyFrame = new FacultyFrame();
         panelFaculty.setLayout(layout);
         panelFaculty.add(facultyFrame);
         panelFaculty.setVisible(true);
+        panelClass.setVisible(false);
+        panelUser.setVisible(false);
         
         classFrame = new ClassFrame();
         panelClass.setLayout(layout);
         panelClass.add(classFrame);
         panelClass.setVisible(true);
+        panelFaculty.setVisible(false);
+        panelUser.setVisible(false);
         
         userFrame = new UserFrame();
         panelUser.setLayout(layout);
         panelUser.add(userFrame);
         panelUser.setVisible(true);
-        
+        panelFaculty.setVisible(false);
+        panelClass.setVisible(false);
     }
 
     /**
@@ -68,7 +75,7 @@ public class AdminManager extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        tbClass = new javax.swing.JTabbedPane();
+        tbAdmin = new javax.swing.JTabbedPane();
         panelFaculty = new javax.swing.JPanel();
         panelClass = new javax.swing.JPanel();
         panelUser = new javax.swing.JPanel();
@@ -91,14 +98,14 @@ public class AdminManager extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        tbClass.addMouseListener(new java.awt.event.MouseAdapter() {
+        tbAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbClassMouseClicked(evt);
+                tbAdminMouseClicked(evt);
             }
         });
-        tbClass.addComponentListener(new java.awt.event.ComponentAdapter() {
+        tbAdmin.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
-                tbClassComponentShown(evt);
+                tbAdminComponentShown(evt);
             }
         });
 
@@ -110,10 +117,10 @@ public class AdminManager extends javax.swing.JFrame {
         );
         panelFacultyLayout.setVerticalGroup(
             panelFacultyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 453, Short.MAX_VALUE)
+            .addGap(0, 442, Short.MAX_VALUE)
         );
 
-        tbClass.addTab("KHOA", panelFaculty);
+        tbAdmin.addTab("KHOA", panelFaculty);
 
         javax.swing.GroupLayout panelClassLayout = new javax.swing.GroupLayout(panelClass);
         panelClass.setLayout(panelClassLayout);
@@ -123,10 +130,10 @@ public class AdminManager extends javax.swing.JFrame {
         );
         panelClassLayout.setVerticalGroup(
             panelClassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 453, Short.MAX_VALUE)
+            .addGap(0, 442, Short.MAX_VALUE)
         );
 
-        tbClass.addTab("LỚP", panelClass);
+        tbAdmin.addTab("LỚP", panelClass);
 
         javax.swing.GroupLayout panelUserLayout = new javax.swing.GroupLayout(panelUser);
         panelUser.setLayout(panelUserLayout);
@@ -136,10 +143,10 @@ public class AdminManager extends javax.swing.JFrame {
         );
         panelUserLayout.setVerticalGroup(
             panelUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 453, Short.MAX_VALUE)
+            .addGap(0, 442, Short.MAX_VALUE)
         );
 
-        tbClass.addTab("USER", panelUser);
+        tbAdmin.addTab("USER", panelUser);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("ADMIN");
@@ -156,33 +163,35 @@ public class AdminManager extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnLogOut)
-                .addContainerGap())
-            .addComponent(tbClass, javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(19, 19, 19))
+            .addComponent(tbAdmin, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(btnLogOut))
+                    .addComponent(btnLogOut)
+                    .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tbClass))
+                .addComponent(tbAdmin))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tbClassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbClassMouseClicked
+    private void tbAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbAdminMouseClicked
         // TODO add your handling code here:
         
-    }//GEN-LAST:event_tbClassMouseClicked
+    }//GEN-LAST:event_tbAdminMouseClicked
 
-    private void tbClassComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_tbClassComponentShown
+    private void tbAdminComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_tbAdminComponentShown
         // TODO add your handling code here:
-    }//GEN-LAST:event_tbClassComponentShown
+    }//GEN-LAST:event_tbAdminComponentShown
 
     private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
         // TODO add your handling code here:
@@ -242,6 +251,6 @@ public class AdminManager extends javax.swing.JFrame {
     private javax.swing.JPanel panelClass;
     private javax.swing.JPanel panelFaculty;
     private javax.swing.JPanel panelUser;
-    private javax.swing.JTabbedPane tbClass;
+    private javax.swing.JTabbedPane tbAdmin;
     // End of variables declaration//GEN-END:variables
 }
