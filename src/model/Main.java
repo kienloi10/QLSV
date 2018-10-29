@@ -2,6 +2,7 @@ package model;
 
 import view.AdminManager;
 import view.Login;
+import view.UserManager;
 
 
 /** Mô tả: Chương trình quản lý sinh viên
@@ -23,10 +24,12 @@ public class Main{
     public static void main(String[] args) {
         // TODO code application logic here
        
-//        Login lg = new Login();
-//        lg.setVisible(true);
-        AdminManager admin = new AdminManager();
-        admin.setVisible(true);
+        Login lg = new Login();
+        lg.setVisible(true);
+//            UserManager user = new UserManager();
+//            user.setVisible(true);
+//            AdminManager admin = new AdminManager();
+//            admin.setVisible(true);
     }
     
 }

@@ -12,12 +12,33 @@ package model;
 public class User {
     private String username;
     private String password;
-    private String codeClass;
+    private String codeFaculty;
+    private String codeRole;
+    
+    public String getCodeRole() {
+        return codeRole;
+    }
 
-    public User(String username, String password, String codeClass) {
+    public void setCodeRole(String codeRole) {
+        this.codeRole = codeRole;
+    }
+    
+    public User(String username, String password, String codeFaculty) {
         this.username = username;
         this.password = password;
-        this.codeClass = codeClass;
+        this.codeFaculty = codeFaculty;
+    }
+
+
+    public String getCodeFaculty() {
+        return codeFaculty;
+    }
+
+    public void setCodeFaculty(String codeFaculty) {
+        this.codeFaculty = codeFaculty;
+    }
+
+    public User() {
     }
 
     public String getUsername() {
@@ -36,13 +57,7 @@ public class User {
         this.password = password;
     }
 
-    public String getCodeClass() {
-        return codeClass;
-    }
 
-    public void setCodeClass(String codeClass) {
-        this.codeClass = codeClass;
-    }
     
     
 }

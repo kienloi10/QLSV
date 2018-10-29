@@ -28,6 +28,9 @@ public class UserFrame extends javax.swing.JPanel {
     List<User> arrayList = new ArrayList<User>();
     ConnectDB connect;
     CheckAll checkAll = new CheckAll();
+    User user = new User();
+    
+    
     public UserFrame() {
         initComponents();
         connect = new ConnectDB();
@@ -224,16 +227,16 @@ public class UserFrame extends javax.swing.JPanel {
 
     private void btnUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUpdateMouseClicked
         // TODO add your handling code here:
-        String username = txtUsername.getText().trim();
-        String password = txtPassword.getText().trim();
-        if (checkAll.checkEmpty(username) || checkAll.checkEmpty(password)){
+        user.setUsername(txtUsername.getText().trim());
+        user.setPassword(txtPassword.getText().trim());
+        if (checkAll.checkEmpty(user.getUsername()) || checkAll.checkEmpty(user.getPassword())){
             JOptionPane.showMessageDialog(null, Constant.USER_E002);
         }else{
-            if (checkAll.checkSpecialValue(username) || checkAll.checkSpecialValue(password)){
+            if (checkAll.checkSpecialValue(user.getUsername()) || checkAll.checkSpecialValue(user.getPassword())){
                 JOptionPane.showMessageDialog(null, Constant.USER_E003);
             }else{
                 connect.getConnect();
-                connect.updateUsers(username, password);
+                connect.updateUsers(user.getUsername(), user.getPassword());
             }
         }
     }//GEN-LAST:event_btnUpdateMouseClicked
@@ -263,7 +266,7 @@ public class UserFrame extends javax.swing.JPanel {
         for (int i = 0; i < arrayList.size(); i++){
             row[0] = arrayList.get(i).getUsername();
             row[1] = arrayList.get(i).getPassword();
-            row[2] = arrayList.get(i).getCodeClass();
+            row[2] = arrayList.get(i).getCodeFaculty();
             model.addRow(row);            
         }
         

@@ -74,15 +74,15 @@ public class ConnectDB {
             if(rs.next())
             {
                 passDB  = rs.getString(1).trim();
-                role = rs.getString(2);
+                role = rs.getString(2).trim();
                 codeRole = rs.getString(3);
             }        
-            if (passDB.isEmpty()){   //Kiểm tra tên đăng nhập có tồn tại không
+            if (passDB.isEmpty()){   
                     JOptionPane.showMessageDialog(null,Constant.LOGIN_E001);
             }else{
-                    if(passDB.equals(password.trim())){  //Kiểm tra password trong data trở về với password user nhập 
+                    if(passDB.equals(password.trim())){   
                         JOptionPane.showMessageDialog(null,Constant.LOGIN_SUCCESS);
-                        System.out.println("Quyền là: " + codeRole);
+                        
                         if (codeRole.trim().equals("1")){
                             AdminManager adminManager =  new AdminManager();
                             adminManager.setVisible(true);
@@ -91,6 +91,8 @@ public class ConnectDB {
                             UserManager userManager = new UserManager();
                             userManager.setVisible(true);
                             login.setVisible(false);
+                            System.out.println("Mã khoa là: " + role);
+                            userManager.showComboBoxClass(role);
                         }                       
                     }else{
                         JOptionPane.showMessageDialog(null,Constant.LOGIN_E002);
@@ -328,6 +330,49 @@ public class ConnectDB {
             }
         }catch(Exception ex){
             System.out.println(ex);
+        }     
+    }
+    
+    public List<Classes> getClassesInUser(String nameFaculty){
+        List<Classes> arrayList = new ArrayList<Classes>();
+        try{
+            st = con.createStatement();
+            String query = "SELECT MALOP, TENLOP, MAKHOA FROM LOP WHERE MAKHOA ='"+nameFaculty+"'";
+            rs = st.executeQuery(query);
+            while(rs.next()){            
+                arrayList.add(new Classes(rs.getString(1), rs.getString(2), rs.getString(3)));
+            }         
+            return arrayList;   
+
+        }catch (Exception e){
+            System.out.println(e);
         }
+        return null;
+    }
+    
+    
+    
+    
+    
+
+   
+    public List<Student> getStudent(String codeClass){
+        List<Student> arrayList = new ArrayList<Student>();
+        try{
+            st = con.createStatement();
+            System.out.println("Test" + role);
+            String query = "SELECT MASV, HO, TEN, PHAI, NGAYSINH, NOISINH, DIACHI "
+                    + "FROM SINHVIEN WHERE MALOP ='" + codeClass + "'" ;
+            rs = st.executeQuery(query);
+            while(rs.next()){            
+                arrayList.add(new Student(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getString(6), rs.getString(7)));
+            }         
+            return arrayList;   
+
+        }catch (Exception e){
+            System.out.println(e);
+        }
+       
+        return null;
     }
 }

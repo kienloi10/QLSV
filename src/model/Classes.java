@@ -15,6 +15,20 @@ public class Classes {
     private String codeClass;
     private String nameClass;
     private String codeFaculty;
+    private String nameFaculty;
+    
+    public String getNameFaculty() {
+        return nameFaculty;
+    }
+
+    public void setNameFaculty(String nameFaculty) {
+        this.nameFaculty = nameFaculty;
+    }
+    
+
+    public Classes() {
+        
+    }
     
     public String getCodeClass() {
         return codeClass;

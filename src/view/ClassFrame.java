@@ -27,12 +27,8 @@ public class ClassFrame extends javax.swing.JPanel {
     CheckAll checkAll = new CheckAll();
     List<Faculty> arrListFaculty = new ArrayList<Faculty>();
     List<Classes> arrListClass = new ArrayList<Classes>();
-    //Biến giữ khoa hiện tại
-    String faculty = "";
-    //Biến mã lớp
-    String codeClass = "";
-    //Biến tên lớp
-    String nameClass = "";
+    Classes classes = new Classes();
+   
     /** Creates new form ClassPanel */
     public ClassFrame() {
         initComponents();
@@ -251,7 +247,7 @@ public class ClassFrame extends javax.swing.JPanel {
     }
     
     private void showClassInTable(){
-        arrListClass = connect.getClasses(faculty);
+        arrListClass = connect.getClasses(classes.getNameFaculty());
         DefaultTableModel model = (DefaultTableModel)tableClass.getModel();
         checkAll.clearTable(model);
         Object[] row = new Object[3];
@@ -270,7 +266,7 @@ public class ClassFrame extends javax.swing.JPanel {
 
     private void cbFacultyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbFacultyActionPerformed
         // TODO add your handling code here:
-        faculty = (String)cbFaculty.getSelectedItem();  
+        classes.setNameFaculty((String)cbFaculty.getSelectedItem());  
         showClassInTable();
     }//GEN-LAST:event_cbFacultyActionPerformed
 
@@ -289,25 +285,25 @@ public class ClassFrame extends javax.swing.JPanel {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-        codeClass = txtCodeClass.getText().trim();
-        nameClass = txtNameClass.getText().trim();
-        if (checkAll.checkEmpty(codeClass) || checkAll.checkEmpty(nameClass)){
+        classes.setCodeClass(txtCodeClass.getText().trim()); 
+        classes.setNameClass(txtNameClass.getText().trim());
+        if (checkAll.checkEmpty(classes.getCodeClass()) || checkAll.checkEmpty(classes.getNameClass())){
             JOptionPane.showMessageDialog(null, Constant.CLASS_E001);
         }else{
-            if (checkAll.checkSpecialValue(codeClass) || checkAll.checkEmpty(nameClass)){
+            if (checkAll.checkSpecialValue(classes.getCodeClass()) || checkAll.checkEmpty(classes.getNameClass())){
                 JOptionPane.showMessageDialog(null, Constant.CLASS_E002);
             }else{
                 connect.getConnect();
-                connect.addClass(codeClass, nameClass, faculty);
+                connect.addClass(classes.getCodeClass(), classes.getNameClass(), classes.getNameFaculty());
             }
         }
         
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void delClass(){
-        codeClass = txtCodeClass.getText().trim();
+        classes.setCodeClass(txtCodeClass.getText().trim());
         connect.getConnect();
-        connect.deleteClass(codeClass);
+        connect.deleteClass(classes.getCodeClass());
     }
     
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
@@ -322,16 +318,16 @@ public class ClassFrame extends javax.swing.JPanel {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
-        codeClass = txtCodeClass.getText().trim();
-        nameClass = txtNameClass.getText().trim();
-        if (checkAll.checkEmpty(codeClass) || checkAll.checkEmpty(nameClass)){
+        classes.setCodeClass(txtCodeClass.getText().trim());
+        classes.setNameClass(txtNameClass.getText().trim());
+        if (checkAll.checkEmpty(classes.getCodeClass()) || checkAll.checkEmpty(classes.getNameClass())){
             JOptionPane.showMessageDialog(null, Constant.CLASS_E001);
         }else{
-            if (checkAll.checkSpecialValue(codeClass) || checkAll.checkEmpty(nameClass)){
+            if (checkAll.checkSpecialValue(classes.getCodeClass()) || checkAll.checkEmpty(classes.getNameClass())){
                 JOptionPane.showMessageDialog(null, Constant.CLASS_E002);
             }else{
                 connect.getConnect();
-                connect.updateClass(codeClass, nameClass);
+                connect.updateClass(classes.getCodeClass(), classes.getNameClass());
             }
         }
         

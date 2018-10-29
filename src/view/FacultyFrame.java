@@ -27,10 +27,8 @@ public class FacultyFrame extends javax.swing.JPanel {
     List<Faculty> arrayList = new ArrayList<Faculty>();
     ConnectDB connect = new ConnectDB();
     CheckAll checkAll = new CheckAll();
-    //Biến mã khoa
-    String codeFaculty = "";
-    //Biến tên khoa
-    String nameFaculty = "";
+    Faculty faculty = new Faculty();
+
     public FacultyFrame() {
         initComponents();
         connect.getConnect();
@@ -226,16 +224,16 @@ public class FacultyFrame extends javax.swing.JPanel {
     
     private void btnAddFacultyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddFacultyActionPerformed
         // TODO add your handling code here:
-        codeFaculty = txtCodeFaculty.getText().trim();
-        nameFaculty = txtNameFaculty.getText().trim();
-        if (checkAll.checkEmpty(codeFaculty) || checkAll.checkEmpty(nameFaculty)){ // Kiểm tra rỗng 
+        faculty.setCodeFaculty(txtCodeFaculty.getText().trim());
+        faculty.setNameFaculty(txtNameFaculty.getText().trim());
+        if (checkAll.checkEmpty(faculty.getCodeFaculty()) || checkAll.checkEmpty(faculty.getNameFaculty())){  
             JOptionPane.showMessageDialog(null, Constant.FACULTY_E001);
         }else{
-            if (checkAll.checkSpecialValue(codeFaculty) == true){    //Kiểm tra ký tự đặc biệt
+            if (checkAll.checkSpecialValue(faculty.getCodeFaculty()) || checkAll.checkSpecialValue(faculty.getNameFaculty())){    
                 JOptionPane.showMessageDialog(null, Constant.FACULTY_E002);
             }else{
                 connect.getConnect();
-                connect.addFaculty(codeFaculty, nameFaculty);
+                connect.addFaculty(faculty.getCodeFaculty(), faculty.getNameFaculty());
             }
          }
     }//GEN-LAST:event_btnAddFacultyActionPerformed
@@ -251,9 +249,9 @@ public class FacultyFrame extends javax.swing.JPanel {
     }//GEN-LAST:event_btnDelFacultyActionPerformed
 
     private void delFaculty(){
-        codeFaculty = txtCodeFaculty.getText().trim();
+        faculty.setCodeFaculty(txtCodeFaculty.getText().trim());
         connect.getConnect();
-        connect.deleteFaculty(codeFaculty);
+        connect.deleteFaculty(faculty.getCodeFaculty());
     }
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
         // TODO add your handling code here:
@@ -271,16 +269,16 @@ public class FacultyFrame extends javax.swing.JPanel {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
-        codeFaculty = txtCodeFaculty.getText().trim();
-        nameFaculty = txtNameFaculty.getText().trim();
-        if (checkAll.checkEmpty(codeFaculty) || checkAll.checkEmpty(nameFaculty)){ // Kiểm tra rỗng 
+        faculty.setCodeFaculty(txtCodeFaculty.getText().trim());
+        faculty.setNameFaculty(txtNameFaculty.getText().trim());
+        if (checkAll.checkEmpty(faculty.getCodeFaculty()) || checkAll.checkEmpty(faculty.getNameFaculty())){  
             JOptionPane.showMessageDialog(null, Constant.FACULTY_E001);
         }else{
-            if (checkAll.checkSpecialValue(codeFaculty) == true){    //Kiểm tra ký tự đặc biệt
+            if (checkAll.checkSpecialValue(faculty.getCodeFaculty()) || checkAll.checkSpecialValue(faculty.getNameFaculty())){    
                 JOptionPane.showMessageDialog(null, Constant.FACULTY_E002);
             }else{
                 connect.getConnect();
-                connect.updateFaculty(codeFaculty, nameFaculty);
+                connect.updateFaculty(faculty.getCodeFaculty(), faculty.getNameFaculty());
             }
          }
     }//GEN-LAST:event_btnUpdateActionPerformed

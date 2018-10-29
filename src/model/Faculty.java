@@ -18,6 +18,9 @@ public class Faculty {
         this.codeFaculty = codeFaculty;
         this.nameFaculty = nameFaculty;
     }
+
+    public Faculty() {
+    }
     
 
     public String getCodeFaculty() {
