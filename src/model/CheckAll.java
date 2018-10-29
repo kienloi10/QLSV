@@ -64,4 +64,14 @@ public class CheckAll {
         }
         return result;
     }
+    
+    public String changeSex(String sex){
+        String result = "";
+        if (sex.equals("1")){
+            result = "Nam";
+        }else{
+            result = "Nữ";
+        }
+        return result;
+    }
 }

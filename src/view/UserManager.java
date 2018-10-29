@@ -8,6 +8,7 @@ package view;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import model.CheckAll;
 import model.Classes;
 import model.ConnectDB;
@@ -27,6 +28,9 @@ public class UserManager extends javax.swing.JFrame {
     List<Classes> arrListClass = new ArrayList<Classes>();
     List<Student> arrListStudent = new ArrayList<Student>();
     Student student = new Student();
+    
+    private final static String man = "Nam";
+    private final static String woman = "Nữ";
     
     public UserManager() {
         initComponents();
@@ -60,6 +64,7 @@ public class UserManager extends javax.swing.JFrame {
         txtAddress = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         txtPlace = new javax.swing.JTextField();
+        cbSex = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableStudent = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
@@ -141,7 +146,9 @@ public class UserManager extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
-                                .addGap(105, 105, 105)
+                                .addGap(18, 18, 18)
+                                .addComponent(cbSex, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(31, 31, 31)
                                 .addComponent(jLabel7)
                                 .addGap(18, 18, 18)
                                 .addComponent(jDate, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -179,12 +186,13 @@ public class UserManager extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(jLabel7))
+                            .addComponent(jLabel7)
+                            .addComponent(cbSex, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel9)
                         .addComponent(txtPlace, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(33, 33, 33)
+                .addGap(30, 30, 30)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -202,6 +210,11 @@ public class UserManager extends javax.swing.JFrame {
                 "Mã SV", "Họ", "Tên", "Phái", "Ngày sinh", "Nơi sinh", "Địa chỉ"
             }
         ));
+        tableStudent.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableStudentMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableStudent);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Thao tác"));
@@ -353,6 +366,28 @@ public class UserManager extends javax.swing.JFrame {
         showStudentInTable();
     }//GEN-LAST:event_btnRefreshActionPerformed
 
+    private void tableStudentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableStudentMouseClicked
+        // TODO add your handling code here:
+        
+        int i = tableStudent.getSelectedRow();
+        TableModel model = tableStudent.getModel();
+        txtCodeStudent.setText(model.getValueAt(i, 0).toString());
+        txtLastName.setText(model.getValueAt(i, 1).toString());
+        txtFirstName.setText(model.getValueAt(i, 2).toString());
+        txtPlace.setText(model.getValueAt(i, 5).toString());
+        txtAddress.setText(model.getValueAt(i, 6).toString());
+        
+        //ComboBox Sex
+        cbSex.removeAllItems();
+        if (checkAll.changeSex(model.getValueAt(i, 3).toString()).equals("Nam")){
+            cbSex.addItem(checkAll.changeSex(model.getValueAt(i, 3).toString()));
+            cbSex.addItem(woman);
+        }else{
+            cbSex.addItem(checkAll.changeSex(model.getValueAt(i, 3).toString()));
+            cbSex.addItem(man);
+        }
+    }//GEN-LAST:event_tableStudentMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -395,6 +430,7 @@ public class UserManager extends javax.swing.JFrame {
     private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> cbClass;
+    private javax.swing.JComboBox<String> cbSex;
     private com.toedter.calendar.JDateChooser jDate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
