@@ -168,7 +168,7 @@
                                   <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                                   <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="jDate" min="-2" pref="151" max="-2" attributes="0"/>
+                                  <Component id="dateChooser" min="-2" pref="151" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                               </Group>
@@ -215,7 +215,7 @@
                               <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="cbSex" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jDate" min="-2" max="-2" attributes="0"/>
+                          <Component id="dateChooser" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -264,7 +264,10 @@
             <Property name="text" type="java.lang.String" value="NG&#xc0;Y SINH"/>
           </Properties>
         </Component>
-        <Component class="com.toedter.calendar.JDateChooser" name="jDate">
+        <Component class="com.toedter.calendar.JDateChooser" name="dateChooser">
+          <Properties>
+            <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-dd"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel8">
           <Properties>
@@ -378,6 +381,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="S&#x1eec;A"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUpdateActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnDel">
           <Properties>
@@ -386,6 +392,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="X&#xd3;A"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDelActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnRefresh">
           <Properties>

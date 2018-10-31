@@ -71,6 +71,18 @@ public final class Constant {
     public final static String CLASS_UPDATE_SUCCESS = "Update class successfully";
     public final static String CLASS_UPDATE_FAILED = "Update class failed";
     
+    
+    //Lỗi trong view user
+    public final static String UM_E001 = "CodeStudent is empty or has a special character";
+    
+    public final static String STUDENT_ADD_SUCCESS = "Add student successfully";
+    public final static String STUDENT_ADD_FAILED = "Add student failed";
+    
+    public final static String STUDENT_DEL_SUCCESS = "Delete student successfully";
+    public final static String STUDENT_DEL_FAILED = "Delete student failed";
+    
+    public final static String STUDENT_UPDATE_SUCCESS = "Update student successfully";
+    public final static String STUDENT_UPDATE_FAILED = "Update student failed";
 }
 
 

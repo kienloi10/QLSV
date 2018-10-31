@@ -333,6 +333,9 @@ public class ConnectDB {
         }     
     }
     
+    
+    
+    
     public List<Classes> getClassesInUser(String nameFaculty){
         List<Classes> arrayList = new ArrayList<Classes>();
         try{
@@ -351,11 +354,6 @@ public class ConnectDB {
     }
     
     
-    
-    
-    
-
-   
     public List<Student> getStudent(String codeClass){
         List<Student> arrayList = new ArrayList<Student>();
         try{
@@ -374,5 +372,85 @@ public class ConnectDB {
         }
        
         return null;
+    }
+    
+    public void addStudent(String codeStudent, 
+                           String lastName, 
+                           String firstName, 
+                           int sex, 
+                           String date, 
+                           String place, 
+                           String address, 
+                           String codeClass)
+    {
+        try{
+            String query = "{call SP_THEMSINHVIEN(?,?,?,?,?,?,?,?)}";
+            cs = con.prepareCall(query);
+            cs.setString(1, codeStudent);
+            cs.setString(2, lastName);
+            cs.setString(3, firstName);
+            cs.setInt(4, sex);
+            cs.setString(5, date);
+            cs.setString(6, place);
+            cs.setString(7, address);
+            cs.setString(8, codeClass);
+            
+            result = cs.executeUpdate();           
+            if (result == 1)
+            {
+                JOptionPane.showMessageDialog(null, Constant.STUDENT_ADD_SUCCESS);
+            }else{
+                JOptionPane.showMessageDialog(null, Constant.STUDENT_ADD_FAILED);
+            }
+                    
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    }
+    
+    public void deleteStudent(String codeStudent){
+        try{
+            st = con.createStatement();
+            String query = "DELETE FROM SINHVIEN WHERE MASV ='" + codeStudent + "'";
+            result = st.executeUpdate(query);
+            if (result == 1){
+                JOptionPane.showMessageDialog(null, Constant.STUDENT_DEL_SUCCESS);                
+            }else{
+                JOptionPane.showMessageDialog(null, Constant.STUDENT_DEL_FAILED);                
+            }
+            
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    }
+    
+        public void updateStudent(String codeStudent, 
+                           String lastName, 
+                           String firstName, 
+                           int sex, 
+                           String date, 
+                           String place, 
+                           String address, 
+                           String codeClass)
+{
+        try{
+            st = con.createStatement();
+            String query = "UPDATE SINHVIEN SET HO = N'" + lastName + "', "
+                                            + "TEN = N'" + firstName + "', "
+                                            + "PHAI =" + sex + ", "
+                                            + "NGAYSINH = '" + date + "', "
+                                            + "NOISINH = N'" + place + "', "
+                                            + "DIACHI = N'" + address + "', "
+                                            + "MALOP = '" + codeClass +"' "
+                            + "WHERE MASV = '" + codeStudent + "'";
+            result = st.executeUpdate(query);
+            if (result == 1){
+                JOptionPane.showMessageDialog(null, Constant.STUDENT_UPDATE_SUCCESS);
+            }else{
+                JOptionPane.showMessageDialog(null, Constant.STUDENT_UPDATE_FAILED);
+            }
+        }catch(Exception ex){
+            System.out.println(ex);
+        }     
     }
 }

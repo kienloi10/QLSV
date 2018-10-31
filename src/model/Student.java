@@ -19,7 +19,17 @@ public class Student {
     private String place;
     private String address;
     private String codeClass;
+    private String nameClass;
+    
+    public String getNameClass() {
+        return nameClass;
+    }
 
+    public void setNameClass(String nameClass) {
+        this.nameClass = nameClass;
+    }
+    
+    
     public Student() {
     }
     

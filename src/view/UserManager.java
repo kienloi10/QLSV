@@ -5,13 +5,21 @@
  */
 package view;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import model.CheckAll;
 import model.Classes;
 import model.ConnectDB;
+import model.Constant;
 import model.Student;
 
 /**
@@ -28,7 +36,8 @@ public class UserManager extends javax.swing.JFrame {
     List<Classes> arrListClass = new ArrayList<Classes>();
     List<Student> arrListStudent = new ArrayList<Student>();
     Student student = new Student();
-    
+    Date date;
+    DateFormat dateFormat;       
     private final static String man = "Nam";
     private final static String woman = "Nữ";
     
@@ -59,7 +68,7 @@ public class UserManager extends javax.swing.JFrame {
         txtFirstName = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jDate = new com.toedter.calendar.JDateChooser();
+        dateChooser = new com.toedter.calendar.JDateChooser();
         jLabel8 = new javax.swing.JLabel();
         txtAddress = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
@@ -127,6 +136,8 @@ public class UserManager extends javax.swing.JFrame {
 
         jLabel7.setText("NGÀY SINH");
 
+        dateChooser.setDateFormatString("yyyy-MM-dd");
+
         jLabel8.setText("ĐỊA CHỈ");
 
         jLabel9.setText("NOI SINH");
@@ -151,7 +162,7 @@ public class UserManager extends javax.swing.JFrame {
                                 .addGap(31, 31, 31)
                                 .addComponent(jLabel7)
                                 .addGap(18, 18, 18)
-                                .addComponent(jDate, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(dateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel9))
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -188,7 +199,7 @@ public class UserManager extends javax.swing.JFrame {
                             .addComponent(jLabel6)
                             .addComponent(jLabel7)
                             .addComponent(cbSex, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(dateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel9)
                         .addComponent(txtPlace, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -229,9 +240,19 @@ public class UserManager extends javax.swing.JFrame {
 
         btnUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/Edit-validated-icon.png"))); // NOI18N
         btnUpdate.setText("SỬA");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
 
         btnDel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/delete-file-icon.png"))); // NOI18N
         btnDel.setText("XÓA");
+        btnDel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDelActionPerformed(evt);
+            }
+        });
 
         btnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/database-refresh-icon.png"))); // NOI18N
         btnRefresh.setText("TẢI LẠI");
@@ -335,7 +356,7 @@ public class UserManager extends javax.swing.JFrame {
             row[0] = arrListStudent.get(i).getCodeStudent();
             row[1] = arrListStudent.get(i).getLastName();
             row[2] = arrListStudent.get(i).getFirstName();
-            row[3] = arrListStudent.get(i).getSex();
+            row[3] = checkAll.changeSex(String.valueOf(arrListStudent.get(i).getSex()));
             row[4] = arrListStudent.get(i).getBirthday();
             row[5] = arrListStudent.get(i).getPlace();
             row[6] = arrListStudent.get(i).getAddress();
@@ -358,6 +379,33 @@ public class UserManager extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
+        student.setCodeStudent(txtCodeStudent.getText().trim());
+        student.setLastName(txtLastName.getText().trim());
+        student.setFirstName(txtFirstName.getText().trim());
+        student.setPlace(txtPlace.getText().trim());
+        student.setAddress(txtAddress.getText().trim());
+        student.setSex(Integer.parseInt(checkAll.changeSex((String)cbSex.getSelectedItem())));   
+        
+        dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        student.setBirthday(dateFormat.format(dateChooser.getDate()));
+        
+        
+        System.out.println("Gioi tinh la: " + student.getSex());
+        if (checkAll.checkEmpty(student.getCodeStudent()) || checkAll.checkSpecialValue(student.getCodeStudent()))
+        {
+            JOptionPane.showMessageDialog(null, Constant.UM_E001);
+        }else{
+            connect.getConnect();
+            connect.addStudent(student.getCodeStudent(), 
+                               student.getLastName(), 
+                               student.getFirstName(),
+                               student.getSex(), 
+                               student.getBirthday(), 
+                               student.getPlace(),
+                               student.getAddress(), 
+                               student.getCodeClass());
+        }
+        
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
@@ -368,7 +416,6 @@ public class UserManager extends javax.swing.JFrame {
 
     private void tableStudentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableStudentMouseClicked
         // TODO add your handling code here:
-        
         int i = tableStudent.getSelectedRow();
         TableModel model = tableStudent.getModel();
         txtCodeStudent.setText(model.getValueAt(i, 0).toString());
@@ -379,14 +426,63 @@ public class UserManager extends javax.swing.JFrame {
         
         //ComboBox Sex
         cbSex.removeAllItems();
-        if (checkAll.changeSex(model.getValueAt(i, 3).toString()).equals("Nam")){
-            cbSex.addItem(checkAll.changeSex(model.getValueAt(i, 3).toString()));
+        if (model.getValueAt(i, 3).toString().equals(man)){
+            cbSex.addItem(model.getValueAt(i, 3).toString());
             cbSex.addItem(woman);
         }else{
-            cbSex.addItem(checkAll.changeSex(model.getValueAt(i, 3).toString()));
+            cbSex.addItem(model.getValueAt(i, 3).toString());
             cbSex.addItem(man);
         }
+        
+        //Date
+        try {
+            date = new SimpleDateFormat("yyyy-MM-dd").parse((String)model.getValueAt(i, 4).toString());
+            dateChooser.setDate(date);
+        } catch (ParseException ex) {
+            Logger.getLogger(UserManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        
     }//GEN-LAST:event_tableStudentMouseClicked
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+        student.setCodeStudent(txtCodeStudent.getText().trim());
+        student.setLastName(txtLastName.getText().trim());
+        student.setFirstName(txtFirstName.getText().trim());
+        student.setPlace(txtPlace.getText().trim());
+        student.setAddress(txtAddress.getText().trim());
+        student.setSex(Integer.parseInt(checkAll.changeSex((String)cbSex.getSelectedItem())));   
+        
+        dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        student.setBirthday(dateFormat.format(dateChooser.getDate()));
+        
+        
+        System.out.println("Gioi tinh la: " + student.getSex());
+        if (checkAll.checkEmpty(student.getCodeStudent()) || checkAll.checkSpecialValue(student.getCodeStudent()))
+        {
+            JOptionPane.showMessageDialog(null, Constant.UM_E001);
+        }else{
+            connect.getConnect();
+            connect.updateStudent(student.getCodeStudent(), 
+                               student.getLastName(), 
+                               student.getFirstName(),
+                               student.getSex(), 
+                               student.getBirthday(), 
+                               student.getPlace(),
+                               student.getAddress(), 
+                               student.getCodeClass());
+
+        }   
+        
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
+        // TODO add your handling code here:
+        student.setCodeStudent(txtCodeStudent.getText().trim());
+        connect.getConnect();
+        connect.deleteStudent(student.getCodeStudent());
+    }//GEN-LAST:event_btnDelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -431,7 +527,7 @@ public class UserManager extends javax.swing.JFrame {
     private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> cbClass;
     private javax.swing.JComboBox<String> cbSex;
-    private com.toedter.calendar.JDateChooser jDate;
+    private com.toedter.calendar.JDateChooser dateChooser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

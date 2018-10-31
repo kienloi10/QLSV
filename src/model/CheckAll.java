@@ -69,9 +69,18 @@ public class CheckAll {
         String result = "";
         if (sex.equals("1")){
             result = "Nam";
-        }else{
+        }
+        if (sex.equals("0")){
             result = "Nữ";
+        }
+        if (sex.equals("Nam")){
+            result = "1";
+        }
+        if (sex.equals("Nữ")){
+            result = "0";
         }
         return result;
     }
+    
+    
 }
